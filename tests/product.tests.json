@@ -1,0 +1,165 @@
+{
+	"system": {
+		"base_url": "http://localhost:12000",
+		"output_file_name": "/ramdisk/academy.log",
+		"authorization_template": "Bearer %(token)s",
+		"stop_on_error": true
+	},
+	"actions": [
+		{
+			"action": "include",
+			"filename": "../../user/tests/user.debug_login.json",
+			"exec": true
+		},
+		{
+			"action": "batch_exec",
+			"name": "switch_fabio"
+		},
+		{
+			"method": "post",
+			"url": "/api/product/add",
+			"auth": true,
+			"params": {
+				"name": "Prod #1",
+				"code": "prod001"
+			},
+			"tests": [
+				{
+					"field": "product.code",
+					"value": "prod001"
+				},
+				{
+					"field": "product._id",
+					"mode": "EXISTS"
+				}
+			],
+			"fields": [
+				[
+					"product._id",
+					"id_prod_01"
+				]
+			]
+		},
+		{
+			"action": "set",
+			"key": "descr_text",
+			"value": "My first and only description"
+		},
+		{
+			"method": "post",
+			"url": "/api/product/add",
+			"auth": true,
+			"params": {
+				"_id": "%(id_prod_01)s",
+				"description": "%(descr_text)s"
+			},
+			"tests": [
+				{
+					"field": "product.code",
+					"value": "prod001"
+				},
+				{
+					"field": "product.description",
+					"value": "%(descr_text)s"
+				}
+			]
+		},
+		{
+			"method": "get",
+			"url": "/api/product/details",
+			"auth": true,
+			"params": {
+				"_id": "%(id_prod_01)s"
+			},
+			"tests": [
+				{
+					"field": "product.code",
+					"value": "prod001"
+				}
+			]
+		},
+		{
+			"method": "get",
+			"url": "/api/product/details",
+			"auth": true,
+			"params": {
+				"code": "prod001"
+			},
+			"tests": [
+				{
+					"field": "product.code",
+					"value": "prod001"
+				}
+			]
+		},
+		{
+			"method": "get",
+			"url": "/api/product/details",
+			"auth": true,
+			"params": {
+				"code_forn": "forn_prod001"
+			},
+			"status_code": 401
+		},
+		{
+			"method": "post",
+			"url": "/api/product/add",
+			"auth": true,
+			"params": {
+				"code_forn": "forn_prod001",
+				"_id": "%(id_prod_01)s"
+			}
+		},
+		{
+			"method": "get",
+			"url": "/api/product/details",
+			"auth": true,
+			"params": {
+				"code_forn": "forn_prod001"
+			},
+			"tests": [
+				{
+					"field": "product.code",
+					"value": "prod001"
+				}
+			]
+		},
+		{
+			"method": "get",
+			"url": "/api/product/list",
+			"auth": true,
+			"tests": [
+				{
+					"field": "products",
+					"mode": "LEN",
+					"value": 0
+				}
+			]
+		},
+		{
+			"method": "post",
+			"url": "/api/product/add",
+			"auth": true,
+			"params": {
+				"visible": true,
+				"_id": "%(id_prod_01)s"
+			}
+		},
+		{
+			"method": "get",
+			"url": "/api/product/list",
+			"auth": true,
+			"tests": [
+				{
+					"field": "products",
+					"mode": "LEN",
+					"value": 1
+				},
+				{
+					"field": "products.[0].code",
+					"value": "prod001"
+				}
+			]
+		}
+	]
+}
