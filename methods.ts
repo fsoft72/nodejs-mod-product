@@ -177,7 +177,6 @@ export const patch_product_admin_update = ( req: ILRequest, id: string, name?: s
 export const patch_product_admin_fields = ( req: ILRequest, id: string, data: any, cback: LCback = null ): Promise<Product> => {
 	return new Promise( async ( resolve, reject ) => {
 		/*=== d2r_start patch_product_admin_fields ===*/
-		console.log( "----- UPDATING: ", data );
 		const p: Product = await _product_save( req, { id, ...data }, false );
 
 		return cback ? cback( null, p ) : resolve( p );
