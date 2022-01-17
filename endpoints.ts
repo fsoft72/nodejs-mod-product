@@ -22,11 +22,11 @@ export const init = ( liwe: ILiWE ) => {
 
 	console.log( "    - Product " );
 
-	product_db_init ( liwe );
+	product_db_init( liwe );
 
 
-	app.post ( "/api/product/admin/add", perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
-		const { name, code, id_maker, id_category, id_availability, code_forn, sku, description, short_description, url, cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level, visible, relevance, status, weight, width, height, depth, tags, ___errors } = typed_dict( req.fields, [
+	app.post( "/api/product/admin/add", perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
+		const { name, code, id_maker, id_category, id_availability, code_forn, sku, description, short_description, url, cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level, visible, relevance, status, weight, width, height, depth, tags, ___errors } = typed_dict( req.fields || req.body, [
 			{ name: "name", type: "string", required: true },
 			{ name: "code", type: "string" },
 			{ name: "id_maker", type: "string" },
@@ -59,17 +59,17 @@ export const init = ( liwe: ILiWE ) => {
 			{ name: "tags", type: "string[]" }
 		] );
 
-		if ( ___errors.length ) return send_error ( res, { message: `Missing required fields: ${___errors.join ( ', ' )}` } );
+		if ( ___errors.length ) return send_error( res, { message: `Missing required fields: ${ ___errors.join( ', ' ) }` } );
 
-		post_product_admin_add ( req,name, code, id_maker, id_category, id_availability, code_forn, sku, description, short_description, url, cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level, visible, relevance, status, weight, width, height, depth, tags,  ( err: ILError, product: Product ) => {
+		post_product_admin_add( req, name, code, id_maker, id_category, id_availability, code_forn, sku, description, short_description, url, cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level, visible, relevance, status, weight, width, height, depth, tags, ( err: ILError, product: Product ) => {
 			if ( err ) return send_error( res, err );
 
 			send_ok( res, { product } );
 		} );
 	} );
 
-	app.patch ( "/api/product/admin/update", perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
-		const { id, name, code, id_maker, id_category, id_availability, code_forn, sku, description, short_description, url, cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level, visible, relevance, status, weight, width, height, depth, tags, ___errors } = typed_dict( req.fields, [
+	app.patch( "/api/product/admin/update", perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
+		const { id, name, code, id_maker, id_category, id_availability, code_forn, sku, description, short_description, url, cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level, visible, relevance, status, weight, width, height, depth, tags, ___errors } = typed_dict( req.fields || req.body, [
 			{ name: "id", type: "string", required: true },
 			{ name: "name", type: "string" },
 			{ name: "code", type: "string" },
@@ -103,105 +103,105 @@ export const init = ( liwe: ILiWE ) => {
 			{ name: "tags", type: "string[]" }
 		] );
 
-		if ( ___errors.length ) return send_error ( res, { message: `Missing required fields: ${___errors.join ( ', ' )}` } );
+		if ( ___errors.length ) return send_error( res, { message: `Missing required fields: ${ ___errors.join( ', ' ) }` } );
 
-		patch_product_admin_update ( req,id, name, code, id_maker, id_category, id_availability, code_forn, sku, description, short_description, url, cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level, visible, relevance, status, weight, width, height, depth, tags,  ( err: ILError, product: Product ) => {
+		patch_product_admin_update( req, id, name, code, id_maker, id_category, id_availability, code_forn, sku, description, short_description, url, cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level, visible, relevance, status, weight, width, height, depth, tags, ( err: ILError, product: Product ) => {
 			if ( err ) return send_error( res, err );
 
 			send_ok( res, { product } );
 		} );
 	} );
 
-	app.patch ( "/api/product/admin/fields", perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
-		const { id, data, ___errors } = typed_dict( req.fields, [
+	app.patch( "/api/product/admin/fields", perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
+		const { id, data, ___errors } = typed_dict( req.fields || req.body, [
 			{ name: "id", type: "string", required: true },
 			{ name: "data", type: "any", required: true }
 		] );
 
-		if ( ___errors.length ) return send_error ( res, { message: `Missing required fields: ${___errors.join ( ', ' )}` } );
+		if ( ___errors.length ) return send_error( res, { message: `Missing required fields: ${ ___errors.join( ', ' ) }` } );
 
-		patch_product_admin_fields ( req,id, data,  ( err: ILError, product: Product ) => {
+		patch_product_admin_fields( req, id, data, ( err: ILError, product: Product ) => {
 			if ( err ) return send_error( res, err );
 
 			send_ok( res, { product } );
 		} );
 	} );
 
-	app.get ( "/api/product/admin/list", perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
+	app.get( "/api/product/admin/list", perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
 		const { id_category, skip, rows, ___errors } = typed_dict( req.query as any, [
 			{ name: "id_category", type: "string" },
 			{ name: "skip", type: "number" },
 			{ name: "rows", type: "number" }
 		] );
 
-		if ( ___errors.length ) return send_error ( res, { message: `Missing required fields: ${___errors.join ( ', ' )}` } );
+		if ( ___errors.length ) return send_error( res, { message: `Missing required fields: ${ ___errors.join( ', ' ) }` } );
 
-		get_product_admin_list ( req,id_category, skip, rows,  ( err: ILError, products: Product[] ) => {
+		get_product_admin_list( req, id_category, skip, rows, ( err: ILError, products: Product[] ) => {
 			if ( err ) return send_error( res, err );
 
 			send_ok( res, { products } );
 		} );
 	} );
 
-	app.delete ( "/api/product/admin/del", perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
-		const { id, ___errors } = typed_dict( req.fields, [
+	app.delete( "/api/product/admin/del", perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
+		const { id, ___errors } = typed_dict( req.fields || req.body, [
 			{ name: "id", type: "string", required: true }
 		] );
 
-		if ( ___errors.length ) return send_error ( res, { message: `Missing required fields: ${___errors.join ( ', ' )}` } );
+		if ( ___errors.length ) return send_error( res, { message: `Missing required fields: ${ ___errors.join( ', ' ) }` } );
 
-		delete_product_admin_del ( req,id,  ( err: ILError, id: string ) => {
+		delete_product_admin_del( req, id, ( err: ILError, id: string ) => {
 			if ( err ) return send_error( res, err );
 
 			send_ok( res, { id } );
 		} );
 	} );
 
-	app.post ( "/api/product/admin/tag", perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
-		const { id, tags, ___errors } = typed_dict( req.fields, [
+	app.post( "/api/product/admin/tag", perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
+		const { id, tags, ___errors } = typed_dict( req.fields || req.body, [
 			{ name: "id", type: "string", required: true },
 			{ name: "tags", type: "string[]", required: true }
 		] );
 
-		if ( ___errors.length ) return send_error ( res, { message: `Missing required fields: ${___errors.join ( ', ' )}` } );
+		if ( ___errors.length ) return send_error( res, { message: `Missing required fields: ${ ___errors.join( ', ' ) }` } );
 
-		post_product_admin_tag ( req,id, tags,  ( err: ILError, product: Product ) => {
+		post_product_admin_tag( req, id, tags, ( err: ILError, product: Product ) => {
 			if ( err ) return send_error( res, err );
 
 			send_ok( res, { product } );
 		} );
 	} );
 
-	app.get ( "/api/product/details", ( req: ILRequest, res: ILResponse ) => {
+	app.get( "/api/product/details", ( req: ILRequest, res: ILResponse ) => {
 		const { id, code, code_forn, ___errors } = typed_dict( req.query as any, [
 			{ name: "id", type: "string" },
 			{ name: "code", type: "string" },
 			{ name: "code_forn", type: "string" }
 		] );
 
-		if ( ___errors.length ) return send_error ( res, { message: `Missing required fields: ${___errors.join ( ', ' )}` } );
+		if ( ___errors.length ) return send_error( res, { message: `Missing required fields: ${ ___errors.join( ', ' ) }` } );
 
-		get_product_details ( req,id, code, code_forn,  ( err: ILError, product: Product ) => {
+		get_product_details( req, id, code, code_forn, ( err: ILError, product: Product ) => {
 			if ( err ) return send_error( res, err );
 
 			send_ok( res, { product } );
 		} );
 	} );
 
-	app.get ( "/api/product/list", ( req: ILRequest, res: ILResponse ) => {
+	app.get( "/api/product/list", ( req: ILRequest, res: ILResponse ) => {
 		const { id_category, skip, rows, ___errors } = typed_dict( req.query as any, [
 			{ name: "id_category", type: "string" },
 			{ name: "skip", type: "number" },
 			{ name: "rows", type: "number" }
 		] );
 
-		if ( ___errors.length ) return send_error ( res, { message: `Missing required fields: ${___errors.join ( ', ' )}` } );
+		if ( ___errors.length ) return send_error( res, { message: `Missing required fields: ${ ___errors.join( ', ' ) }` } );
 
-		get_product_list ( req,id_category, skip, rows,  ( err: ILError, products: Product[] ) => {
+		get_product_list( req, id_category, skip, rows, ( err: ILError, products: Product[] ) => {
 			if ( err ) return send_error( res, err );
 
 			send_ok( res, { products } );
 		} );
 	} );
 
-}
+};
