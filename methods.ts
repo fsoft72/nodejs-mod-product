@@ -300,7 +300,7 @@ export const product_db_init = ( liwe: ILiWE, cback: LCback = null ): Promise<bo
 			{ type: "persistent", fields: [ "status" ], unique: false },
 			{ type: "persistent", fields: [ "relevance" ], unique: false },
 			{ type: "persistent", fields: [ "tags[*]" ], unique: false },
-		], false );
+		] );
 
 		/*=== d2r_start product_db_init ===*/
 
