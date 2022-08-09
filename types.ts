@@ -4,7 +4,7 @@
 
 /** Product */
 export interface Product {
-	/** Product unique ID */
+	/** the main id field */
 	id?: string;
 	/** The domain name */
 	domain?: string;
@@ -14,7 +14,7 @@ export interface Product {
 	id_maker?: string;
 	/** Product Category ID */
 	id_category?: string;
-	/** ID of availability */
+	/** ID of availability [default: 0] */
 	id_availability?: number;
 	/** Product unique code */
 	code?: string;
@@ -44,41 +44,43 @@ export interface Product {
 	curr_price_vat?: number;
 	/** VAT applied */
 	vat?: number;
-	/** Flag T/F if the product is free */
+	/** Flag T/F if the product is free [default: false] */
 	free?: boolean;
 	/** Percentage discount */
 	discount?: number;
-	/** Quantity available in the warehouse */
+	/** Quantity available in the warehouse [default: 0] */
 	quant?: number;
-	/** Quantity in back order */
+	/** Quantity in back order [default: 0] */
 	ordered?: number;
 	/** Product availability date */
 	available?: Date;
-	/** User level required to see the product */
+	/** User level required to see the product [default: 0] */
 	level?: number;
-	/** Flag T/F if the product is visible */
+	/** Flag T/F if the product is visible [default: true] */
 	visible?: boolean;
-	/** Product status */
+	/** Product status [default: 0] */
 	status?: number;
-	/** Image URL */
+	/** Image ID */
 	image?: string;
-	/** Importance of the product in search results (the more, the better) */
+	/** Image URL */
+	image_url?: string;
+	/** Importance of the product in search results (the more, the better) [default: 0] */
 	relevance?: number;
-	/** Product weight (in grams) */
+	/** Product weight (in grams) [default: 0] */
 	weight?: number;
-	/** Width of the product in millimiters */
+	/** Width of the product in millimiters [default: 0] */
 	width?: number;
-	/** Height of the product in millimiters */
+	/** Height of the product in millimiters [default: 0] */
 	height?: number;
-	/** Depth of the product in millimiters */
+	/** Depth of the product in millimiters [default: 0] */
 	depth?: number;
-	/** Tags added to the product */
+	/** tags for the type */
 	tags?: string[];
 }
 
 export const ProductKeys = {
 	'id': { type: 'string', priv: false },
-	'domain': { type: 'string', priv: false },
+	'domain': { type: 'string', priv: true },
 	'id_owner': { type: 'string', priv: false },
 	'id_maker': { type: 'string', priv: false },
 	'id_category': { type: 'string', priv: false },
@@ -106,6 +108,7 @@ export const ProductKeys = {
 	'visible': { type: 'boolean', priv: false },
 	'status': { type: 'number', priv: false },
 	'image': { type: 'string', priv: false },
+	'image_url': { type: 'string', priv: false },
 	'relevance': { type: 'number', priv: false },
 	'weight': { type: 'number', priv: false },
 	'width': { type: 'number', priv: false },

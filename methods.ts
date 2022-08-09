@@ -1,14 +1,19 @@
 
 import { ILRequest, ILResponse, LCback, ILiweConfig, ILError, ILiWE } from '../../liwe/types';
 import { mkid } from '../../liwe/utils';
-import { collection_add, collection_find_all, collection_find_one, collection_find_one_dict, collection_find_all_dict, collection_del_one_dict, collection_init, prepare_filters } from '../../liwe/arangodb';
+import { collection_add, collection_count, collection_find_all, collection_find_one, collection_find_one_dict, collection_find_all_dict, collection_del_one_dict, collection_del_all_dict, collection_init, prepare_filters } from '../../liwe/arangodb';
 import { DocumentCollection } from 'arangojs/collection';
+import { $l } from '../../liwe/locale';
 
 import {
 	Product, ProductKeys
 } from './types';
 
 let _liwe: ILiWE = null;
+
+const _ = ( txt: string, vals: any = null, plural = false ) => {
+	return $l( txt, vals, plural, "product" );
+};
 
 let _coll_products: DocumentCollection = null;
 
@@ -68,14 +73,17 @@ const _product_save = ( req: ILRequest, params: Product, return_empty = true, cb
 };
 /*=== d2r_end __file_header ===*/
 
+// {{{ post_product_admin_add ( req: ILRequest, name: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], cback: LCBack = null ): Promise<Product>
 /**
- * Adds a new product
+ * Adds product in the system.
+
+This function returns the full `Product` structure
  *
  * @param name - Product name [req]
  * @param code - Product unique code [opt]
  * @param id_maker - The user id of the product manufacturer [opt]
  * @param id_category - Product Category ID [opt]
- * @param id_availability - ID of availability [opt]
+ * @param id_availability - ID of availability [default: 0] [opt]
  * @param code_forn - Product unique code assigned by the provider [opt]
  * @param sku - Product SKU [opt]
  * @param description - Product description [opt]
@@ -87,23 +95,23 @@ const _product_save = ( req: ILRequest, params: Product, return_empty = true, cb
  * @param curr_price_net - The current price, VAT free [opt]
  * @param curr_price_vat - The current price with VAT [opt]
  * @param vat - VAT applied [opt]
- * @param free - Flag T/F if the product is free [opt]
+ * @param free - Flag T/F if the product is free [default: false] [opt]
  * @param discount - Percentage discount [opt]
- * @param quant - Quantity available in the warehouse [opt]
- * @param ordered - Quantity in back order [opt]
+ * @param quant - Quantity available in the warehouse [default: 0] [opt]
+ * @param ordered - Quantity in back order [default: 0] [opt]
  * @param available - Product availability date [opt]
- * @param level - User level required to see the product [opt]
- * @param visible - Flag T/F if the product is visible [opt]
- * @param relevance - Importance of the product in search results (the more, the better) [opt]
- * @param status - Product status [opt]
- * @param weight - Product weight (in grams) [opt]
- * @param width - Width of the product in millimiters [opt]
- * @param height - Height of the product in millimiters [opt]
- * @param depth - Depth of the product in millimiters [opt]
+ * @param level - User level required to see the product [default: 0] [opt]
+ * @param visible - Flag T/F if the product is visible [default: true] [opt]
+ * @param relevance - Importance of the product in search results (the more, the better) [default: 0] [opt]
+ * @param status - Product status [default: 0] [opt]
+ * @param weight - Product weight (in grams) [default: 0] [opt]
+ * @param width - Width of the product in millimiters [default: 0] [opt]
+ * @param height - Height of the product in millimiters [default: 0] [opt]
+ * @param depth - Depth of the product in millimiters [default: 0] [opt]
  * @param tags - Product tags [opt]
  *
  */
-export const post_product_admin_add = ( req: ILRequest, name: string, code?: string, id_maker?: string, id_category?: string, id_availability: number = 0, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free: boolean = false, discount?: number, quant: number = 0, ordered: number = 0, available?: Date, level: number = 0, visible: boolean = true, relevance: number = 0, status: number = 0, weight: number = 0, width: number = 0, height: number = 0, depth: number = 0, tags?: string[], cback: LCback = null ): Promise<Product> => {
+export const post_product_admin_add = ( req: ILRequest, name: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], cback: LCback = null ): Promise<Product> => {
 	return new Promise( async ( resolve, reject ) => {
 		/*=== d2r_start post_product_admin_add ===*/
 		const p: Product = await _product_save( req, {
@@ -116,16 +124,20 @@ export const post_product_admin_add = ( req: ILRequest, name: string, code?: str
 		/*=== d2r_end post_product_admin_add ===*/
 	} );
 };
+// }}}
 
+// {{{ patch_product_admin_update ( req: ILRequest, id: string, name?: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], cback: LCBack = null ): Promise<Product>
 /**
- * Updates an existing product
+ * Updates the product specified by `id`.
+
+This function returns the full `Product` structure
  *
  * @param id - Product ID [req]
  * @param name - Product name [opt]
  * @param code - Product unique code [opt]
  * @param id_maker - The user id of the product manufacturer [opt]
  * @param id_category - Product Category ID [opt]
- * @param id_availability - ID of availability [opt]
+ * @param id_availability - ID of availability [default: 0] [opt]
  * @param code_forn - Product unique code assigned by the provider [opt]
  * @param sku - Product SKU [opt]
  * @param description - Product description [opt]
@@ -137,23 +149,23 @@ export const post_product_admin_add = ( req: ILRequest, name: string, code?: str
  * @param curr_price_net - The current price, VAT free [opt]
  * @param curr_price_vat - The current price with VAT [opt]
  * @param vat - VAT applied [opt]
- * @param free - Flag T/F if the product is free [opt]
+ * @param free - Flag T/F if the product is free [default: false] [opt]
  * @param discount - Percentage discount [opt]
- * @param quant - Quantity available in the warehouse [opt]
- * @param ordered - Quantity in back order [opt]
+ * @param quant - Quantity available in the warehouse [default: 0] [opt]
+ * @param ordered - Quantity in back order [default: 0] [opt]
  * @param available - Product availability date [opt]
- * @param level - User level required to see the product [opt]
- * @param visible - Flag T/F if the product is visible [opt]
- * @param relevance - Importance of the product in search results (the more, the better) [opt]
- * @param status - Product status [opt]
- * @param weight - Product weight (in grams) [opt]
- * @param width - Width of the product in millimiters [opt]
- * @param height - Height of the product in millimiters [opt]
- * @param depth - Depth of the product in millimiters [opt]
+ * @param level - User level required to see the product [default: 0] [opt]
+ * @param visible - Flag T/F if the product is visible [default: true] [opt]
+ * @param relevance - Importance of the product in search results (the more, the better) [default: 0] [opt]
+ * @param status - Product status [default: 0] [opt]
+ * @param weight - Product weight (in grams) [default: 0] [opt]
+ * @param width - Width of the product in millimiters [default: 0] [opt]
+ * @param height - Height of the product in millimiters [default: 0] [opt]
+ * @param depth - Depth of the product in millimiters [default: 0] [opt]
  * @param tags - Product tags [opt]
  *
  */
-export const patch_product_admin_update = ( req: ILRequest, id: string, name?: string, code?: string, id_maker?: string, id_category?: string, id_availability: number = 0, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free: boolean = false, discount?: number, quant: number = 0, ordered: number = 0, available?: Date, level: number = 0, visible: boolean = true, relevance: number = 0, status: number = 0, weight: number = 0, width: number = 0, height: number = 0, depth: number = 0, tags?: string[], cback: LCback = null ): Promise<Product> => {
+export const patch_product_admin_update = ( req: ILRequest, id: string, name?: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], cback: LCback = null ): Promise<Product> => {
 	return new Promise( async ( resolve, reject ) => {
 		/*=== d2r_start patch_product_admin_update ===*/
 		const p: Product = await _product_save( req, {
@@ -167,9 +179,13 @@ export const patch_product_admin_update = ( req: ILRequest, id: string, name?: s
 		/*=== d2r_end patch_product_admin_update ===*/
 	} );
 };
+// }}}
 
+// {{{ patch_product_admin_fields ( req: ILRequest, id: string, data: any, cback: LCBack = null ): Promise<Product>
 /**
- * Modifies some fields
+ * The call modifies one or more fields.
+
+This function returns the full `Product` structure
  *
  * @param id - The product ID [req]
  * @param data - The field / value to patch [req]
@@ -184,13 +200,19 @@ export const patch_product_admin_fields = ( req: ILRequest, id: string, data: an
 		/*=== d2r_end patch_product_admin_fields ===*/
 	} );
 };
+// }}}
 
+// {{{ get_product_admin_list ( req: ILRequest, id_category?: string, skip: number = 0, rows: number = -1, cback: LCBack = null ): Promise<Product[]>
 /**
- * List all products
+ * Returns all products.
+
+This function returns a list of full `Product` structure.
+
+This function supports pagination.
  *
- * @param id_category - The category the product belongs to [opt]
- * @param skip - First line to return [opt]
- * @param rows - How many rows to return [opt]
+ * @param id_category -  [opt]
+ * @param skip -  [opt]
+ * @param rows -  [opt]
  *
  */
 export const get_product_admin_list = ( req: ILRequest, id_category?: string, skip: number = 0, rows: number = -1, cback: LCback = null ): Promise<Product[]> => {
@@ -203,9 +225,11 @@ export const get_product_admin_list = ( req: ILRequest, id_category?: string, sk
 		/*=== d2r_end get_product_admin_list ===*/
 	} );
 };
+// }}}
 
+// {{{ delete_product_admin_del ( req: ILRequest, id: string, cback: LCBack = null ): Promise<string>
 /**
- * Deletes a product
+ * Deletes a product from the system.
  *
  * @param id - The product id to be deleted [req]
  *
@@ -219,24 +243,34 @@ export const delete_product_admin_del = ( req: ILRequest, id: string, cback: LCb
 		/*=== d2r_end delete_product_admin_del ===*/
 	} );
 };
+// }}}
 
+// {{{ get_product_admin_tag ( req: ILRequest, id: string, tags: string[], cback: LCBack = null ): Promise<Product>
 /**
- * Tag a product
+ * This endpoint allows you to add tags to a product.
  *
  * @param id - The product ID [req]
  * @param tags - A list of tags to be added to the user [req]
  *
  */
-export const post_product_admin_tag = ( req: ILRequest, id: string, tags: string[], cback: LCback = null ): Promise<Product> => {
+export const get_product_admin_tag = ( req: ILRequest, id: string, tags: string[], cback: LCback = null ): Promise<Product> => {
 	return new Promise( async ( resolve, reject ) => {
-		/*=== d2r_start post_product_admin_tag ===*/
+		/*=== d2r_start get_product_admin_tag ===*/
 
-		/*=== d2r_end post_product_admin_tag ===*/
+		/*=== d2r_end get_product_admin_tag ===*/
 	} );
 };
+// }}}
 
+// {{{ get_product_details ( req: ILRequest, id?: string, code?: string, code_forn?: string, cback: LCBack = null ): Promise<Product>
 /**
- * Get all product details
+ * Returns all product details only if the product is `visible`.
+
+The product can be identified by  `id`, `code` or `code_forn`.
+
+You can pass more than a field, but one is enough.
+
+This function returns the full `Product` structure
  *
  * @param id - Product unique ID [opt]
  * @param code - Product unique code [opt]
@@ -256,9 +290,17 @@ export const get_product_details = ( req: ILRequest, id?: string, code?: string,
 		/*=== d2r_end get_product_details ===*/
 	} );
 };
+// }}}
 
+// {{{ get_product_list ( req: ILRequest, id_category?: string, skip: number = 0, rows: number = -1, cback: LCBack = null ): Promise<Product[]>
 /**
- * List all products
+ * Returns all visible products.
+
+Products with `visible` set to `false` are not shown.
+
+This function returns a list of full `Product` structure.
+
+This function supports pagination.
  *
  * @param id_category - The category the product belongs to [opt]
  * @param skip - First line to return [opt]
@@ -274,90 +316,8 @@ export const get_product_list = ( req: ILRequest, id_category?: string, skip: nu
 		/*=== d2r_end get_product_list ===*/
 	} );
 };
+// }}}
 
-/**
- * Initializes the product database
- *
- * @param liwe - LiWE full config [req]
- *
- */
-export const product_db_init = ( liwe: ILiWE, cback: LCback = null ): Promise<boolean> => {
-	return new Promise( async ( resolve, reject ) => {
-		_liwe = liwe;
-
-		_coll_products = await collection_init( liwe.db, COLL_PRODUCTS, [
-			{ type: "persistent", fields: [ "id" ], unique: true },
-			{ type: "persistent", fields: [ "domain" ], unique: false },
-			{ type: "persistent", fields: [ "id_owner" ], unique: false },
-			{ type: "persistent", fields: [ "id_maker" ], unique: false },
-			{ type: "persistent", fields: [ "id_category" ], unique: false },
-			{ type: "persistent", fields: [ "id_availability" ], unique: false },
-			{ type: "persistent", fields: [ "code" ], unique: true },
-			{ type: "persistent", fields: [ "code_forn" ], unique: false },
-			{ type: "persistent", fields: [ "sku" ], unique: false },
-			{ type: "persistent", fields: [ "name" ], unique: false },
-			{ type: "persistent", fields: [ "free" ], unique: false },
-			{ type: "persistent", fields: [ "visible" ], unique: false },
-			{ type: "persistent", fields: [ "status" ], unique: false },
-			{ type: "persistent", fields: [ "relevance" ], unique: false },
-			{ type: "persistent", fields: [ "tags[*]" ], unique: false },
-		] );
-
-		/*=== d2r_start product_db_init ===*/
-
-		/*=== d2r_end product_db_init ===*/
-	} );
-};
-
-/**
- * Creates a new product
- *
- * @param req - The ILRequest [req]
- * @param name - Product name [req]
- * @param code - Product unique code [opt]
- * @param id_maker - The user id of the product manufacturer [opt]
- * @param id_category - Product Category ID [opt]
- * @param id_availability - ID of availability [opt]
- * @param code_forn - Product unique code assigned by the provider [opt]
- * @param sku - Product SKU [opt]
- * @param description - Product description [opt]
- * @param short_description - Product short description [opt]
- * @param url - Product original URL [opt]
- * @param cost - Cost for buying it [opt]
- * @param price_net - The price, VAT free [opt]
- * @param price_vat - The price with VAT [opt]
- * @param curr_price_net - The current price, VAT free [opt]
- * @param curr_price_vat - The current price with VAT [opt]
- * @param vat - VAT applied [opt]
- * @param free - Flag T/F if the product is free [opt]
- * @param discount - Percentage discount [opt]
- * @param quant - Quantity available in the warehouse [opt]
- * @param ordered - Quantity in back order [opt]
- * @param available - Product availability date [opt]
- * @param level - User level required to see the product [opt]
- * @param visible - Flag T/F if the product is visible [opt]
- * @param relevance - Importance of the product in search results (the more, the better) [opt]
- * @param status - Product status [opt]
- * @param weight - Product weight (in grams) [opt]
- * @param width - Width of the product in millimiters [opt]
- * @param height - Height of the product in millimiters [opt]
- * @param depth - Depth of the product in millimiters [opt]
- * @param tags - Product tags [opt]
- *
- */
-export const product_create = ( req: ILRequest, name: string, code?: string, id_maker?: string, id_category?: string, id_availability: number = 0, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free: boolean = false, discount?: number, quant: number = 0, ordered: number = 0, available?: Date, level: number = 0, visible: boolean = true, relevance: number = 0, status: number = 0, weight: number = 0, width: number = 0, height: number = 0, depth: number = 0, tags?: string[], cback: LCback = null ): Promise<Product> => {
-	return new Promise( async ( resolve, reject ) => {
-		/*=== d2r_start product_create ===*/
-		const p: Product = await _product_save( req, {
-			name, code, id_maker, id_category, id_availability, code_forn, description, short_description, url,
-			cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level,
-			visible, relevance, status, weight, width, height, depth, sku, tags
-		}, true );
-
-		return cback ? cback( null, p ) : resolve( p );
-		/*=== d2r_end product_create ===*/
-	} );
-};
 
 /**
  * Creates a new product
@@ -385,5 +345,89 @@ export const product_get = ( req: ILRequest, id?: string, code?: string, code_fo
 
 		return cback ? cback( null, prod ) : resolve( prod );
 		/*=== d2r_end product_get ===*/
+	} );
+};
+
+/**
+ * Creates a new product
+ *
+ * @param req - The ILRequest [req]
+ * @param name - Product name [req]
+ * @param code - Product unique code [opt]
+ * @param id_maker - The user id of the product manufacturer [opt]
+ * @param id_category - Product Category ID [opt]
+ * @param id_availability - ID of availability [default: 0] [opt]
+ * @param code_forn - Product unique code assigned by the provider [opt]
+ * @param sku - Product SKU [opt]
+ * @param description - Product description [opt]
+ * @param short_description - Product short description [opt]
+ * @param url - Product original URL [opt]
+ * @param cost - Cost to buy it [opt]
+ * @param price_net - The price, VAT free [opt]
+ * @param price_vat - The price with VAT [opt]
+ * @param curr_price_net - The current price, VAT free [opt]
+ * @param curr_price_vat - The current price with VAT [opt]
+ * @param vat - VAT applied [opt]
+ * @param free - Flag T/F if the product is free [default: false] [opt]
+ * @param discount - Percentage discount [opt]
+ * @param quant - Quantity available in the warehouse [default: 0] [opt]
+ * @param ordered - Quantity in back order [default: 0] [opt]
+ * @param available - Product availability date [opt]
+ * @param level - User level required to see the product [default: 0] [opt]
+ * @param visible - Flag T/F if the product is visible [default: true] [opt]
+ * @param relevance - Importance of the product in search results (the more, the better) [default: 0] [opt]
+ * @param status - Product status [default: 0] [opt]
+ * @param weight - Product weight (in grams) [default: 0] [opt]
+ * @param width - Width of the product in millimiters [default: 0] [opt]
+ * @param height - Height of the product in millimiters [default: 0] [opt]
+ * @param depth - Depth of the product in millimiters [default: 0] [opt]
+ * @param tags - Product tags [opt]
+ *
+ */
+export const product_create = ( req: ILRequest, name: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], cback: LCback = null ): Promise<Product> => {
+	return new Promise( async ( resolve, reject ) => {
+		/*=== d2r_start product_create ===*/
+		const p: Product = await _product_save( req, {
+			name, code, id_maker, id_category, id_availability, code_forn, description, short_description, url,
+			cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level,
+			visible, relevance, status, weight, width, height, depth, sku, tags
+		}, true );
+
+		return cback ? cback( null, p ) : resolve( p );
+		/*=== d2r_end product_create ===*/
+	} );
+};
+
+/**
+ * Initializes the product database
+ *
+ * @param liwe - LiWE full config [req]
+ *
+ */
+export const product_db_init = ( liwe: ILiWE, cback: LCback = null ): Promise<boolean> => {
+	return new Promise( async ( resolve, reject ) => {
+		_liwe = liwe;
+
+		_coll_products = await collection_init( liwe.db, COLL_PRODUCTS, [
+			{ type: "persistent", fields: [ "id" ], unique: true },
+			{ type: "persistent", fields: [ "domain" ], unique: false },
+			{ type: "persistent", fields: [ "id_owner" ], unique: false },
+			{ type: "persistent", fields: [ "id_maker" ], unique: false },
+			{ type: "persistent", fields: [ "id_category" ], unique: false },
+			{ type: "persistent", fields: [ "id_availability" ], unique: false },
+			{ type: "persistent", fields: [ "code" ], unique: false },
+			{ type: "persistent", fields: [ "code_forn" ], unique: false },
+			{ type: "persistent", fields: [ "sku" ], unique: false },
+			{ type: "persistent", fields: [ "name" ], unique: false },
+			{ type: "persistent", fields: [ "free" ], unique: false },
+			{ type: "persistent", fields: [ "visible" ], unique: false },
+			{ type: "persistent", fields: [ "status" ], unique: false },
+			{ type: "persistent", fields: [ "relevance" ], unique: false },
+			{ type: "persistent", fields: [ "tags[*]" ], unique: false },
+		], { drop: false } );
+
+		/*=== d2r_start product_db_init ===*/
+
+		/*=== d2r_end product_db_init ===*/
 	} );
 };
