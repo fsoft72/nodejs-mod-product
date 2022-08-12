@@ -318,6 +318,29 @@ export const get_product_list = ( req: ILRequest, id_category?: string, skip: nu
 };
 // }}}
 
+// {{{ get_product_admin_details ( req: ILRequest, id: string, cback: LCBack = null ): Promise<Product>
+/**
+ * The product must be specified by its `id`
+ *
+ * @param id - The product id [req]
+ *
+ */
+export const get_product_admin_details = ( req: ILRequest, id: string, cback: LCback = null ): Promise<Product> => {
+	return new Promise( async ( resolve, reject ) => {
+		/*=== d2r_start get_product_admin_details ===*/
+		const domain = await system_domain_get_by_session( req );
+		const prod: Product = await collection_find_one_dict( req.db, COLL_PRODUCTS, { id, domain: domain.code }, ProductKeys );
+
+		if ( !prod.id_category ) prod.id_category = 'undefined';
+
+		console.log( "==== PROD: ", prod );
+
+		return cback ? cback( null, prod ) : resolve( prod );
+		/*=== d2r_end get_product_admin_details ===*/
+	} );
+};
+// }}}
+
 
 /**
  * Creates a new product
