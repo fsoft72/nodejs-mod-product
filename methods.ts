@@ -35,7 +35,7 @@ const _product_get = async ( req: ILRequest, id: string, return_empty: boolean =
 const _product_save = ( req: ILRequest, params: Product, return_empty = true, cback: LCback = null ): Promise<Product> => {
 	return new Promise( async ( resolve, reject ) => {
 		let code_ok = false;
-		const err = { message: "Product code already in use" };
+		const err: ILError = { message: "Product code already in use" };
 		try {
 			const cprod = await product_get( req, null, params.code, null );
 			if ( cprod.id === params.id )

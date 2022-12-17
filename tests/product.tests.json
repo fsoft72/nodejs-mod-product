@@ -13,11 +13,11 @@
 		},
 		{
 			"action": "batch_exec",
-			"name": "switch_fabio"
+			"name": "switch_admin"
 		},
 		{
 			"method": "post",
-			"url": "/api/product/add",
+			"url": "/api/product/admin/add",
 			"auth": true,
 			"params": {
 				"name": "Prod #1",
@@ -29,13 +29,13 @@
 					"value": "prod001"
 				},
 				{
-					"field": "product._id",
+					"field": "product.id",
 					"mode": "EXISTS"
 				}
 			],
 			"fields": [
 				[
-					"product._id",
+					"product.id",
 					"id_prod_01"
 				]
 			]
@@ -46,11 +46,11 @@
 			"value": "My first and only description"
 		},
 		{
-			"method": "post",
-			"url": "/api/product/add",
+			"method": "patch",
+			"url": "/api/product/admin/update",
 			"auth": true,
 			"params": {
-				"_id": "%(id_prod_01)s",
+				"id": "%(id_prod_01)s",
 				"description": "%(descr_text)s"
 			},
 			"tests": [
@@ -69,7 +69,7 @@
 			"url": "/api/product/details",
 			"auth": true,
 			"params": {
-				"_id": "%(id_prod_01)s"
+				"id": "%(id_prod_01)s"
 			},
 			"tests": [
 				{
@@ -99,15 +99,15 @@
 			"params": {
 				"code_forn": "forn_prod001"
 			},
-			"status_code": 401
+			"status_code": 400
 		},
 		{
-			"method": "post",
-			"url": "/api/product/add",
+			"method": "patch",
+			"url": "/api/product/admin/update",
 			"auth": true,
 			"params": {
 				"code_forn": "forn_prod001",
-				"_id": "%(id_prod_01)s"
+				"id": "%(id_prod_01)s"
 			}
 		},
 		{
@@ -137,12 +137,12 @@
 			]
 		},
 		{
-			"method": "post",
-			"url": "/api/product/add",
+			"method": "PATCH",
+			"url": "/api/product/admin/update",
 			"auth": true,
 			"params": {
 				"visible": true,
-				"_id": "%(id_prod_01)s"
+				"id": "%(id_prod_01)s"
 			}
 		},
 		{
@@ -160,6 +160,13 @@
 					"value": "prod001"
 				}
 			]
+		},
+		{
+			"method": "delete",
+			"url": "/api/product/admin/del",
+			"params": {
+				"id": "%(id_prod_01)s"
+			}
 		}
 	]
 }
