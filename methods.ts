@@ -1,7 +1,6 @@
 
 import { ILRequest, ILResponse, LCback, ILiweConfig, ILError, ILiWE } from '../../liwe/types';
 import { mkid } from '../../liwe/utils';
-import { collection_add, collection_count, collection_find_all, collection_find_one, collection_find_one_dict, collection_find_all_dict, collection_del_one_dict, collection_del_all_dict, collection_init, prepare_filters } from '../../liwe/arangodb';
 import { DocumentCollection } from 'arangojs/collection';
 import { $l } from '../../liwe/locale';
 
@@ -23,13 +22,15 @@ const COLL_PRODUCTS = "products";
 import { keys_filter, keys_valid, set_attr } from '../../liwe/utils';
 import { system_domain_get_by_session } from '../system/methods';
 import { tag_obj } from '../tag/methods';
+import { adb_query_one, adb_record_add, adb_find_all, adb_find_one, adb_prepare_filters, adb_del_one } from '../../liwe/db/arango';
+import { collection_init } from '../../liwe/arangodb';
 
 const _product_get = async ( req: ILRequest, id: string, return_empty: boolean = false ): Promise<Product> => {
 	const domain = await system_domain_get_by_session( req );
 	if ( !id && return_empty ) return { id: mkid( 'product' ), domain: domain.code } as Product;
 	if ( !id ) return null;
 
-	return await collection_find_one( _liwe.db, `FOR u IN ${ COLL_PRODUCTS } FILTER u.id == @id RETURN u`, { id } );
+	return await adb_query_one( _liwe.db, `FOR u IN ${ COLL_PRODUCTS } FILTER u.id == @id RETURN u`, { id } );
 };
 
 const _product_save = ( req: ILRequest, params: Product, return_empty = true, cback: LCback = null ): Promise<Product> => {
@@ -66,7 +67,7 @@ const _product_save = ( req: ILRequest, params: Product, return_empty = true, cb
 
 		prod = { ...prod, ...keys_valid( params ) };
 
-		prod = await collection_add( _coll_products, prod, false, ProductKeys );
+		prod = await adb_record_add( req.db, COLL_PRODUCTS, prod, ProductKeys );
 
 		return cback ? cback( null, prod ) : resolve( prod );
 	} );
@@ -219,7 +220,7 @@ export const get_product_admin_list = ( req: ILRequest, id_category?: string, sk
 	return new Promise( async ( resolve, reject ) => {
 		/*=== d2r_start get_product_admin_list ===*/
 		const domain = await system_domain_get_by_session( req );
-		const prods: Product[] = await collection_find_all_dict( req.db, COLL_PRODUCTS, { domain: domain.code, id_category }, ProductKeys, { rows, skip } );
+		const prods: Product[] = await adb_find_all( req.db, COLL_PRODUCTS, { domain: domain.code, id_category }, ProductKeys, { rows, skip } );
 
 		return cback ? cback( null, prods ) : resolve( prods );
 		/*=== d2r_end get_product_admin_list ===*/
@@ -237,7 +238,7 @@ export const get_product_admin_list = ( req: ILRequest, id_category?: string, sk
 export const delete_product_admin_del = ( req: ILRequest, id: string, cback: LCback = null ): Promise<string> => {
 	return new Promise( async ( resolve, reject ) => {
 		/*=== d2r_start delete_product_admin_del ===*/
-		await collection_del_one_dict( req.db, COLL_PRODUCTS, { id } );
+		await adb_del_one( req.db, COLL_PRODUCTS, { id } );
 
 		return cback ? cback( null, id ) : resolve( id );
 		/*=== d2r_end delete_product_admin_del ===*/
@@ -311,7 +312,7 @@ export const get_product_list = ( req: ILRequest, id_category?: string, skip: nu
 	return new Promise( async ( resolve, reject ) => {
 		/*=== d2r_start get_product_list ===*/
 		const domain = await system_domain_get_by_session( req );
-		const res: Product[] = await collection_find_all_dict( req.db, COLL_PRODUCTS, { id_category, visible: true, domain: domain.code }, ProductKeys, { rows, skip } );
+		const res: Product[] = await adb_find_all( req.db, COLL_PRODUCTS, { id_category, visible: true, domain: domain.code }, ProductKeys, { rows, skip } );
 		return cback ? cback( null, res ) : resolve( res );
 		/*=== d2r_end get_product_list ===*/
 	} );
@@ -329,7 +330,7 @@ export const get_product_admin_details = ( req: ILRequest, id: string, cback: LC
 	return new Promise( async ( resolve, reject ) => {
 		/*=== d2r_start get_product_admin_details ===*/
 		const domain = await system_domain_get_by_session( req );
-		const prod: Product = await collection_find_one_dict( req.db, COLL_PRODUCTS, { id, domain: domain.code }, ProductKeys );
+		const prod: Product = await adb_find_one( req.db, COLL_PRODUCTS, { id, domain: domain.code }, ProductKeys );
 
 		if ( !prod.id_category ) prod.id_category = 'undefined';
 
@@ -354,12 +355,12 @@ export const get_product_admin_details = ( req: ILRequest, id: string, cback: LC
 export const product_get = ( req: ILRequest, id?: string, code?: string, code_forn?: string, cback: LCback = null ): Promise<Product> => {
 	return new Promise( async ( resolve, reject ) => {
 		/*=== d2r_start product_get ===*/
-		const [ filters, values ] = prepare_filters( 'prod', { id, code, code_forn } );
+		const [ filters, values ] = adb_prepare_filters( 'prod', { id, code, code_forn } );
 		const err = { "message": "No conditions specified" };
 
 		if ( !filters ) return cback ? cback( err ) : reject( err );
 
-		const prod = await collection_find_one( req.db, `FOR prod IN ${ COLL_PRODUCTS } ${ filters } RETURN prod`, values );
+		const prod = await adb_query_one( req.db, `FOR prod IN ${ COLL_PRODUCTS } ${ filters } RETURN prod`, values );
 
 		if ( !prod ) {
 			err.message = "Product not found";
