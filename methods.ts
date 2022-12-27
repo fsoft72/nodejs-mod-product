@@ -22,8 +22,7 @@ const COLL_PRODUCTS = "products";
 import { keys_filter, keys_valid, set_attr } from '../../liwe/utils';
 import { system_domain_get_by_session } from '../system/methods';
 import { tag_obj } from '../tag/methods';
-import { adb_query_one, adb_record_add, adb_find_all, adb_find_one, adb_prepare_filters, adb_del_one } from '../../liwe/db/arango';
-import { collection_init } from '../../liwe/arangodb';
+import { adb_query_one, adb_record_add, adb_find_all, adb_find_one, adb_prepare_filters, adb_del_one, adb_collection_init } from '../../liwe/db/arango';
 
 const _product_get = async ( req: ILRequest, id: string, return_empty: boolean = false ): Promise<Product> => {
 	const domain = await system_domain_get_by_session( req );
@@ -432,7 +431,7 @@ export const product_db_init = ( liwe: ILiWE, cback: LCback = null ): Promise<bo
 	return new Promise( async ( resolve, reject ) => {
 		_liwe = liwe;
 
-		_coll_products = await collection_init( liwe.db, COLL_PRODUCTS, [
+		_coll_products = await adb_collection_init( liwe.db, COLL_PRODUCTS, [
 			{ type: "persistent", fields: [ "id" ], unique: true },
 			{ type: "persistent", fields: [ "domain" ], unique: false },
 			{ type: "persistent", fields: [ "id_owner" ], unique: false },
