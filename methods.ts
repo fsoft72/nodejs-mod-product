@@ -61,7 +61,7 @@ const _product_save = ( req: ILRequest, params: Product, return_empty = true, cb
 			const tags = params.tags;
 			delete params.tags;
 
-			await tag_obj( req, tags, prod, 'product' );
+			await tag_obj( req, tags, prod.id, 'product' );
 		}
 
 		prod = { ...prod, ...keys_valid( params ) };
