@@ -29,7 +29,7 @@ import { adb_query_one, adb_record_add, adb_find_all, adb_find_one, adb_prepare_
 
 const _product_get = async ( req: ILRequest, id: string, return_empty: boolean = false ): Promise<Product> => {
 	const domain = await system_domain_get_by_session( req );
-	if ( !id && return_empty ) return { id: mkid( 'product' ), domain: domain.code } as Product;
+	if ( !id && return_empty ) return { id: mkid( 'prod' ), domain: domain.code } as Product;
 	if ( !id ) return null;
 
 	return await adb_query_one( _liwe.db, `FOR u IN ${ COLL_PRODUCTS } FILTER u.id == @id RETURN u`, { id } );
@@ -76,7 +76,7 @@ const _product_save = ( req: ILRequest, params: Product, return_empty = true, cb
 };
 /*=== f2c_end __file_header ===*/
 
-// {{{ post_product_admin_add ( req: ILRequest, name: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], cback: LCBack = null ): Promise<Product>
+// {{{ post_product_admin_add ( req: ILRequest, name: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], single?: boolean, cback: LCBack = null ): Promise<Product>
 /**
  *
  * Adds product in the system.
@@ -112,17 +112,19 @@ const _product_save = ( req: ILRequest, params: Product, return_empty = true, cb
  * @param height - Height of the product in millimiters [default: 0] [opt]
  * @param depth - Depth of the product in millimiters [default: 0] [opt]
  * @param tags - Product tags [opt]
+ * @param single - If T, only one item per order can be bought [opt]
  *
  * @return product: Product
  *
  */
-export const post_product_admin_add = ( req: ILRequest, name: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], cback: LCback = null ): Promise<Product> => {
+export const post_product_admin_add = ( req: ILRequest, name: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], single?: boolean, cback: LCback = null ): Promise<Product> => {
 	return new Promise( async ( resolve, reject ) => {
 		/*=== f2c_start post_product_admin_add ===*/
 		const p: Product = await _product_save( req, {
+			id: mkid( 'prod' ),
 			name, code, id_maker, id_category, id_availability, code_forn, description, short_description, url,
 			cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level,
-			visible, relevance, status, weight, width, height, depth, sku, tags
+			visible, relevance, status, weight, width, height, depth, sku, tags, single
 		}, true );
 
 		return cback ? cback( null, p ) : resolve( p );
@@ -438,6 +440,7 @@ export const product_create = ( req: ILRequest, name: string, code?: string, id_
 	return new Promise( async ( resolve, reject ) => {
 		/*=== f2c_start product_create ===*/
 		const p: Product = await _product_save( req, {
+			id: mkid( 'prod' ),
 			name, code, id_maker, id_category, id_availability, code_forn, description, short_description, url,
 			cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level,
 			visible, relevance, status, weight, width, height, depth, sku, tags

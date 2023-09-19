@@ -34,7 +34,7 @@ export const init = ( liwe: ILiWE ) => {
 	product_db_init ( liwe );
 
 	app.post ( '/api/product/admin/add', perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
-		const { name, code, id_maker, id_category, id_availability, code_forn, sku, description, short_description, url, cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level, visible, relevance, status, weight, width, height, depth, tags, ___errors } = typed_dict( req.body, [
+		const { name, code, id_maker, id_category, id_availability, code_forn, sku, description, short_description, url, cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level, visible, relevance, status, weight, width, height, depth, tags, single, ___errors } = typed_dict( req.body, [
 			{ name: "name", type: "string", required: true },
 			{ name: "code", type: "string" },
 			{ name: "id_maker", type: "string" },
@@ -64,12 +64,13 @@ export const init = ( liwe: ILiWE ) => {
 			{ name: "width", type: "number" },
 			{ name: "height", type: "number" },
 			{ name: "depth", type: "number" },
-			{ name: "tags", type: "string[]" }
+			{ name: "tags", type: "string[]" },
+			{ name: "single", type: "boolean" }
 		] );
 
 		if ( ___errors.length ) return send_error ( res, { message: `Parameters error: ${___errors.join ( ', ' )}` } );
 
-		post_product_admin_add ( req, name, code, id_maker, id_category, id_availability, code_forn, sku, description, short_description, url, cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level, visible, relevance, status, weight, width, height, depth, tags, ( err: ILError, product: Product ) => {
+		post_product_admin_add ( req, name, code, id_maker, id_category, id_availability, code_forn, sku, description, short_description, url, cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level, visible, relevance, status, weight, width, height, depth, tags, single, ( err: ILError, product: Product ) => {
 			if ( err ) return send_error( res, err );
 
 			send_ok( res, { product } );

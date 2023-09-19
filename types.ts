@@ -6,7 +6,7 @@
 /** Product */
 export interface Product {
 	/** the main id field */
-	id?: string;
+	id: string;
 	/** The domain name */
 	domain?: string;
 	/** User ID that created the product */
@@ -77,6 +77,8 @@ export interface Product {
 	depth?: number;
 	/** tags for the type */
 	tags?: string[];
+	/** If T, only one item can be bought */
+	single?: boolean;
 }
 
 export const ProductKeys = {
@@ -116,5 +118,6 @@ export const ProductKeys = {
 	'height': { type: 'number', priv: false },
 	'depth': { type: 'number', priv: false },
 	'tags': { type: 'string[]', priv: false },
+	'single': { type: 'boolean', priv: false },
 };
 
