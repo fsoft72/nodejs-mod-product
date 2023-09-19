@@ -29,10 +29,21 @@ import { adb_query_one, adb_record_add, adb_find_all, adb_find_one, adb_prepare_
 
 const _product_get = async ( req: ILRequest, id: string, return_empty: boolean = false ): Promise<Product> => {
 	const domain = await system_domain_get_by_session( req );
-	if ( !id && return_empty ) return { id: mkid( 'prod' ), domain: domain.code } as Product;
-	if ( !id ) return null;
+	let prod: Product = null;
+	if ( id ) {
+		prod = await adb_find_one( req.db, COLL_PRODUCTS, { id, domain: domain.code } );
+		if ( prod ) return prod;
+	}
 
-	return await adb_query_one( _liwe.db, `FOR u IN ${ COLL_PRODUCTS } FILTER u.id == @id RETURN u`, { id } );
+	if ( !prod && return_empty ) {
+		return {
+			id: id || mkid( 'prod' ),
+			domain: domain.code,
+			id_owner: req.user.id,
+		};
+	}
+
+	return null;
 };
 
 const _product_save = ( req: ILRequest, params: Product, return_empty = true, cback: LCback = null ): Promise<Product> => {
