@@ -46,29 +46,20 @@ const _product_get = async ( req: ILRequest, id: string, return_empty: boolean =
 	return null;
 };
 
-const _product_save = ( req: ILRequest, params: Product, return_empty = true, cback: LCback = null ): Promise<Product> => {
+const _product_save = ( req: ILRequest, err: ILError, params: Product, return_empty = true, cback: LCback = null ): Promise<Product> => {
 	return new Promise( async ( resolve, reject ) => {
+		err.message = "";
 		let code_ok = false;
-		const err: ILError = { message: "Product code already in use" };
-		try {
-			const cprod = await product_get( req, null, params.code, null );
-			if ( cprod.id === params.id )
-				code_ok = true;
 
-		} catch ( e ) {
-			// If we don't find the product, the code is new
-			code_ok = true;
-		}
-
-		if ( !code_ok ) {
-			return cback ? cback( err ) : reject( err );
-		}
+		// check if product code is not already in use
+		const cprod = await product_get( req, null, params.code, null );
+		if ( cprod && params.id && cprod.id !== params.id ) return cback ? cback( err ) : reject( err );
 
 		let prod = await _product_get( req, params.id, return_empty );
 
 		if ( !prod ) {
 			err.message = 'Product not found';
-			return cback ? cback( err ) : reject( err );
+			return cback ? cback( null, null ) : resolve( null );
 		}
 
 		if ( params.tags ) {
@@ -131,12 +122,17 @@ const _product_save = ( req: ILRequest, params: Product, return_empty = true, cb
 export const post_product_admin_add = ( req: ILRequest, name: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], single?: boolean, cback: LCback = null ): Promise<Product> => {
 	return new Promise( async ( resolve, reject ) => {
 		/*=== f2c_start post_product_admin_add ===*/
-		const p: Product = await _product_save( req, {
+		const err = { message: "" };
+		const domain = await system_domain_get_by_session( req );
+		const p: Product = await _product_save( req, err, {
 			id: mkid( 'prod' ),
+			domain: domain.code,
 			name, code, id_maker, id_category, id_availability, code_forn, description, short_description, url,
 			cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level,
 			visible, relevance, status, weight, width, height, depth, sku, tags, single
 		}, true );
+
+		if ( err.message ) return cback ? cback( err ) : reject( err );
 
 		return cback ? cback( null, p ) : resolve( p );
 		/*=== f2c_end post_product_admin_add ===*/
@@ -188,12 +184,15 @@ export const post_product_admin_add = ( req: ILRequest, name: string, code?: str
 export const patch_product_admin_update = ( req: ILRequest, id: string, name?: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], cback: LCback = null ): Promise<Product> => {
 	return new Promise( async ( resolve, reject ) => {
 		/*=== f2c_start patch_product_admin_update ===*/
-		const p: Product = await _product_save( req, {
+		const err = { message: "" };
+		const p: Product = await _product_save( req, err, {
 			id,
 			name, code, id_maker, id_category, id_availability, code_forn, description, short_description, url,
 			cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level,
 			visible, relevance, status, weight, width, height, depth, sku, tags
 		}, false );
+
+		if ( err.message ) return cback ? cback( err ) : reject( err );
 
 		return cback ? cback( null, p ) : resolve( p );
 		/*=== f2c_end patch_product_admin_update ===*/
@@ -216,7 +215,10 @@ export const patch_product_admin_update = ( req: ILRequest, id: string, name?: s
 export const patch_product_admin_fields = ( req: ILRequest, id: string, data: any, cback: LCback = null ): Promise<Product> => {
 	return new Promise( async ( resolve, reject ) => {
 		/*=== f2c_start patch_product_admin_fields ===*/
-		const p: Product = await _product_save( req, { id, ...data }, false );
+		const err = { message: "" };
+		const p: Product = await _product_save( req, err, { id, ...data }, false );
+
+		if ( err.message ) return cback ? cback( err ) : reject( err );
 
 		return cback ? cback( null, p ) : resolve( p );
 		/*=== f2c_end patch_product_admin_fields ===*/
@@ -389,7 +391,8 @@ export const get_product_admin_details = ( req: ILRequest, id: string, cback: LC
 export const product_get = ( req: ILRequest, id?: string, code?: string, code_forn?: string, cback: LCback = null ): Promise<Product> => {
 	return new Promise( async ( resolve, reject ) => {
 		/*=== f2c_start product_get ===*/
-		const [ filters, values ] = adb_prepare_filters( 'prod', { id, code, code_forn } );
+		const domain = await system_domain_get_by_session( req );
+		const [ filters, values ] = adb_prepare_filters( 'prod', { id, code, code_forn, domain: domain.code } );
 		const err = { "message": "No conditions specified" };
 
 		if ( !filters ) return cback ? cback( err ) : reject( err );
@@ -450,12 +453,16 @@ export const product_get = ( req: ILRequest, id?: string, code?: string, code_fo
 export const product_create = ( req: ILRequest, name: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], cback: LCback = null ): Promise<Product> => {
 	return new Promise( async ( resolve, reject ) => {
 		/*=== f2c_start product_create ===*/
-		const p: Product = await _product_save( req, {
-			id: mkid( 'prod' ),
+		const err = { message: "" };
+		const domain = await system_domain_get_by_session( req );
+		const p: Product = await _product_save( req, err, {
+			id: mkid( 'prod' ), domain: domain.code,
 			name, code, id_maker, id_category, id_availability, code_forn, description, short_description, url,
 			cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level,
 			visible, relevance, status, weight, width, height, depth, sku, tags
 		}, true );
+
+		if ( err.message ) return cback ? cback( err ) : reject( err );
 
 		return cback ? cback( null, p ) : resolve( p );
 		/*=== f2c_end product_create ===*/
