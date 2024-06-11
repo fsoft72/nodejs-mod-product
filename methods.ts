@@ -30,6 +30,7 @@ import { adb_query_one, adb_record_add, adb_find_all, adb_find_one, adb_prepare_
 const _product_get = async ( req: ILRequest, id: string, return_empty: boolean = false ): Promise<Product> => {
 	const domain = await system_domain_get_by_session( req );
 	let prod: Product = null;
+
 	if ( id ) {
 		prod = await adb_find_one( req.db, COLL_PRODUCTS, { id, domain: domain.code } );
 		if ( prod ) return prod;
@@ -49,11 +50,13 @@ const _product_get = async ( req: ILRequest, id: string, return_empty: boolean =
 const _product_save = ( req: ILRequest, err: ILError, params: Product, return_empty = true, cback: LCback = null ): Promise<Product> => {
 	return new Promise( async ( resolve, reject ) => {
 		err.message = "";
-		let code_ok = false;
 
 		// check if product code is not already in use
 		const cprod = await product_get( req, null, params.code, null );
-		if ( cprod && params.id && cprod.id !== params.id ) return cback ? cback( err ) : reject( err );
+		if ( cprod && params.id && cprod.id !== params.id ) {
+			err.message = "Product code already in use";
+			return cback ? cback( null, null ) : resolve( null );
+		}
 
 		let prod = await _product_get( req, params.id, return_empty );
 
@@ -122,7 +125,7 @@ const _product_save = ( req: ILRequest, err: ILError, params: Product, return_em
 export const post_product_admin_add = ( req: ILRequest, name: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], single?: boolean, cback: LCback = null ): Promise<Product> => {
 	return new Promise( async ( resolve, reject ) => {
 		/*=== f2c_start post_product_admin_add ===*/
-		const err = { message: "" };
+		const err: ILError = { message: "" };
 		const domain = await system_domain_get_by_session( req );
 		const p: Product = await _product_save( req, err, {
 			id: mkid( 'prod' ),
@@ -401,7 +404,7 @@ export const product_get = ( req: ILRequest, id?: string, code?: string, code_fo
 
 		if ( !prod ) {
 			err.message = "Product not found";
-			return cback ? cback( err ) : reject( err );
+			return cback ? cback( null, null ) : resolve( null );
 		}
 
 		return cback ? cback( null, prod ) : resolve( prod );
