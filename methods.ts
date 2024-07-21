@@ -378,6 +378,53 @@ export const get_product_admin_details = ( req: ILRequest, id: string, cback: LC
 };
 // }}}
 
+// {{{ post_product_admin_import_csv ( req: ILRequest, file: File, cback: LCBack = null ): Promise<number>
+/**
+ *
+ * @param file - CSV File to read [req]
+ *
+ * @return products: number
+ *
+ */
+export const post_product_admin_import_csv = ( req: ILRequest, file: File, cback: LCback = null ): Promise<number> => {
+	return new Promise( async ( resolve, reject ) => {
+		/*=== f2c_start post_product_admin_import_csv ===*/
+    let err: ILError = {
+      message: "File not received correctly"
+    };
+
+    if (!file) return cback ? cback(err) : reject(err);
+
+    err.message = "Couldn't read file";
+    const lines: string[] = file.text.toString().split('\n');
+    if (!lines) return cback ? cback(err) : reject(err);
+    
+    err.message = "Error pasing CSV";
+    let uploaded_prods: number = 0;
+    lines.forEach( async (line) => {
+      const fields: string[] = line.split(',');
+      try {
+        const prod: Product = {
+          id: mkid('prod'),
+          id_maker: fields[0]
+        };
+
+        const res = await adb_record_add(req.db, COLL_PRODUCTS, { prod });
+        if (res.err) return
+
+        uploaded_prods++;
+      } catch (e: unknown) {
+        console.log('ERROR (CSV PARSING) =', e);
+        throw(e);
+      }
+    });
+
+    return cback ? cback(uploaded_prods) : resolve(uploaded_prods);
+		/*=== f2c_end post_product_admin_import_csv ===*/
+	} );
+};
+// }}}
+
 // {{{ product_get ( req: ILRequest, id?: string, code?: string, code_forn?: string, cback: LCBack = null ): Promise<Product>
 /**
  *

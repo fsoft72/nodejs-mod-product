@@ -12,7 +12,7 @@ import { perms } from '../../liwe/auth';
 import {
 	// endpoints function
 	delete_product_admin_del, get_product_admin_details, get_product_admin_list, get_product_admin_tag, get_product_details,
-	get_product_list, patch_product_admin_fields, patch_product_admin_update, post_product_admin_add,
+	get_product_list, patch_product_admin_fields, patch_product_admin_update, post_product_admin_add, post_product_admin_import_csv,
 	// functions
 	product_create, product_db_init, product_get,
 } from './methods';
@@ -224,6 +224,20 @@ export const init = ( liwe: ILiWE ) => {
 			if ( err ) return send_error( res, err );
 
 			send_ok( res, { product } );
+		} );
+	} );
+
+	app.post ( '/api/product/admin/import/csv', perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
+		const { file, ___errors } = typed_dict( req.body, [
+			{ name: "file", type: "File", required: true }
+		] );
+
+		if ( ___errors.length ) return send_error ( res, { message: `Parameters error: ${___errors.join ( ', ' )}` } );
+
+		post_product_admin_import_csv ( req, file, ( err: ILError, products: number ) => {
+			if ( err ) return send_error( res, err );
+
+			send_ok( res, { products } );
 		} );
 	} );
 
