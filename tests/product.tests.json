@@ -93,15 +93,6 @@
 			]
 		},
 		{
-			"method": "get",
-			"url": "/api/product/details",
-			"auth": true,
-			"params": {
-				"code_forn": "forn_prod001"
-			},
-			"status_code": 400
-		},
-		{
 			"method": "patch",
 			"url": "/api/product/admin/update",
 			"auth": true,

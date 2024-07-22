@@ -229,7 +229,7 @@ export const init = ( liwe: ILiWE ) => {
 
 	app.post ( '/api/product/admin/import/csv', perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
 		const { file, ___errors } = typed_dict( req.body, [
-			{ name: "file", type: "File", required: true }
+			{ name: "file", type: "File" }
 		] );
 
 		if ( ___errors.length ) return send_error ( res, { message: `Parameters error: ${___errors.join ( ', ' )}` } );

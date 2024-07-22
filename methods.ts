@@ -8,15 +8,15 @@ import { $l } from '../../liwe/locale';
 import { system_permissions_register } from '../system/methods';
 
 import {
-	Product, ProductKeys,
+  Product, ProductKeys,
 } from './types';
 
 import _module_perms from './perms';
 
 let _liwe: ILiWE = null;
 
-const _ = ( txt: string, vals: any = null, plural = false ) => {
-	return $l( txt, vals, plural, "product" );
+const _ = (txt: string, vals: any = null, plural = false) => {
+  return $l(txt, vals, plural, "product");
 };
 
 const COLL_PRODUCTS = "products";
@@ -26,59 +26,83 @@ import { keys_filter, keys_valid, mkid, set_attr } from '../../liwe/utils';
 import { system_domain_get_by_session } from '../system/methods';
 import { tag_obj } from '../tag/methods';
 import { adb_query_one, adb_record_add, adb_find_all, adb_find_one, adb_prepare_filters, adb_del_one, adb_collection_init } from '../../liwe/db/arango';
+import * as fs from '../../liwe/fs';
 
-const _product_get = async ( req: ILRequest, id: string, return_empty: boolean = false ): Promise<Product> => {
-	const domain = await system_domain_get_by_session( req );
-	let prod: Product = null;
+const _product_get = async (req: ILRequest, id: string, return_empty: boolean = false): Promise<Product> => {
+  const domain = await system_domain_get_by_session(req);
+  let prod: Product = null;
 
-	if ( id ) {
-		prod = await adb_find_one( req.db, COLL_PRODUCTS, { id, domain: domain.code } );
-		if ( prod ) return prod;
-	}
+  if (id) {
+    prod = await adb_find_one(req.db, COLL_PRODUCTS, { id, domain: domain.code });
+    if (prod) return prod;
+  }
 
-	if ( !prod && return_empty ) {
-		return {
-			id: id || mkid( 'prod' ),
-			domain: domain.code,
-			id_owner: req.user.id,
-		};
-	}
+  if (!prod && return_empty) {
+    return {
+      id: id || mkid('prod'),
+      domain: domain.code,
+      id_owner: req.user.id,
+    };
+  }
 
-	return null;
+  return null;
 };
 
-const _product_save = ( req: ILRequest, err: ILError, params: Product, return_empty = true, cback: LCback = null ): Promise<Product> => {
-	return new Promise( async ( resolve, reject ) => {
-		err.message = "";
+const _product_save = (req: ILRequest, err: ILError, params: Product, return_empty = true, cback: LCback = null): Promise<Product> => {
+  return new Promise(async (resolve, reject) => {
+    err.message = "";
 
-		// check if product code is not already in use
-		const cprod = await product_get( req, null, params.code, null );
-		if ( cprod && params.id && cprod.id !== params.id ) {
-			err.message = "Product code already in use";
-			return cback ? cback( null, null ) : resolve( null );
-		}
+    // check if product code is not already in use
+    const cprod = await product_get(req, null, params.code, null);
+    if (cprod && params.id && cprod.id !== params.id) {
+      err.message = "Product code already in use";
+      return cback ? cback(null, null) : resolve(null);
+    }
 
-		let prod = await _product_get( req, params.id, return_empty );
+    let prod = await _product_get(req, params.id, return_empty);
 
-		if ( !prod ) {
-			err.message = 'Product not found';
-			return cback ? cback( null, null ) : resolve( null );
-		}
+    if (!prod) {
+      err.message = 'Product not found';
+      return cback ? cback(null, null) : resolve(null);
+    }
 
-		if ( params.tags ) {
-			const tags = params.tags;
-			delete params.tags;
+    if (params.tags) {
+      const tags = params.tags;
+      delete params.tags;
 
-			await tag_obj( req, tags, prod.id, 'product' );
-		}
+      await tag_obj(req, tags, prod.id, 'product');
+    }
 
-		prod = { ...prod, ...keys_valid( params ) };
+    prod = { ...prod, ...keys_valid(params) };
 
-		prod = await adb_record_add( req.db, COLL_PRODUCTS, prod, ProductKeys );
+    prod = await adb_record_add(req.db, COLL_PRODUCTS, prod, ProductKeys);
 
-		return cback ? cback( null, prod ) : resolve( prod );
-	} );
+    return cback ? cback(null, prod) : resolve(prod);
+  });
 };
+
+const _get_field_positions = (pos: Record<string, number>): Record<string, number> => {
+    const positions: Record<string, number> = {
+           "id_maker": pos[ "Produttore" ],
+        "id_category": pos[ "Categoria" ],
+               "code": pos[ "Codice Prodotto" ],
+          "code_forn": pos[ "Codice Prodotto ( Assegnato dal Fornitore )" ],
+                "sku": pos[ "SKU" ],
+               "name": pos[ "Nome" ],
+        "description": pos[ "Descrizione" ],
+  "short_description": pos[ "Descrizione Breve" ],
+          "price_vat": pos[ "Prezzo IVATO" ],
+     "curr_price_vat": pos[ "Prezzo Corrente + IVA" ],
+                "vat": pos[ "IVA" ],
+              "quant": pos[ "Quantità" ],
+             "weight": pos[ "Peso [g]" ],
+             "height": pos[ "Altezza [mm]" ],
+              "width": pos[ "Larghezza [mm]" ],
+              "depth": pos[ "Profondita’ [mm]" ]
+    }
+
+    return positions;
+}
 /*=== f2c_end __file_header ===*/
 
 // {{{ post_product_admin_add ( req: ILRequest, name: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], single?: boolean, cback: LCBack = null ): Promise<Product>
@@ -122,24 +146,24 @@ const _product_save = ( req: ILRequest, err: ILError, params: Product, return_em
  * @return product: Product
  *
  */
-export const post_product_admin_add = ( req: ILRequest, name: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], single?: boolean, cback: LCback = null ): Promise<Product> => {
-	return new Promise( async ( resolve, reject ) => {
-		/*=== f2c_start post_product_admin_add ===*/
-		const err: ILError = { message: "" };
-		const domain = await system_domain_get_by_session( req );
-		const p: Product = await _product_save( req, err, {
-			id: mkid( 'prod' ),
-			domain: domain.code,
-			name, code, id_maker, id_category, id_availability, code_forn, description, short_description, url,
-			cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level,
-			visible, relevance, status, weight, width, height, depth, sku, tags, single
-		}, true );
+export const post_product_admin_add = (req: ILRequest, name: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], single?: boolean, cback: LCback = null): Promise<Product> => {
+  return new Promise(async (resolve, reject) => {
+    /*=== f2c_start post_product_admin_add ===*/
+    const err: ILError = { message: "" };
+    const domain = await system_domain_get_by_session(req);
+    const p: Product = await _product_save(req, err, {
+      id: mkid('prod'),
+      domain: domain.code,
+      name, code, id_maker, id_category, id_availability, code_forn, description, short_description, url,
+      cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level,
+      visible, relevance, status, weight, width, height, depth, sku, tags, single
+    }, true);
 
-		if ( err.message ) return cback ? cback( err ) : reject( err );
+    if (err.message) return cback ? cback(err) : reject(err);
 
-		return cback ? cback( null, p ) : resolve( p );
-		/*=== f2c_end post_product_admin_add ===*/
-	} );
+    return cback ? cback(null, p) : resolve(p);
+    /*=== f2c_end post_product_admin_add ===*/
+  });
 };
 // }}}
 
@@ -184,22 +208,22 @@ export const post_product_admin_add = ( req: ILRequest, name: string, code?: str
  * @return product: Product
  *
  */
-export const patch_product_admin_update = ( req: ILRequest, id: string, name?: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], cback: LCback = null ): Promise<Product> => {
-	return new Promise( async ( resolve, reject ) => {
-		/*=== f2c_start patch_product_admin_update ===*/
-		const err = { message: "" };
-		const p: Product = await _product_save( req, err, {
-			id,
-			name, code, id_maker, id_category, id_availability, code_forn, description, short_description, url,
-			cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level,
-			visible, relevance, status, weight, width, height, depth, sku, tags
-		}, false );
+export const patch_product_admin_update = (req: ILRequest, id: string, name?: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], cback: LCback = null): Promise<Product> => {
+  return new Promise(async (resolve, reject) => {
+    /*=== f2c_start patch_product_admin_update ===*/
+    const err = { message: "" };
+    const p: Product = await _product_save(req, err, {
+      id,
+      name, code, id_maker, id_category, id_availability, code_forn, description, short_description, url,
+      cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level,
+      visible, relevance, status, weight, width, height, depth, sku, tags
+    }, false);
 
-		if ( err.message ) return cback ? cback( err ) : reject( err );
+    if (err.message) return cback ? cback(err) : reject(err);
 
-		return cback ? cback( null, p ) : resolve( p );
-		/*=== f2c_end patch_product_admin_update ===*/
-	} );
+    return cback ? cback(null, p) : resolve(p);
+    /*=== f2c_end patch_product_admin_update ===*/
+  });
 };
 // }}}
 
@@ -215,17 +239,17 @@ export const patch_product_admin_update = ( req: ILRequest, id: string, name?: s
  * @return product: Product
  *
  */
-export const patch_product_admin_fields = ( req: ILRequest, id: string, data: any, cback: LCback = null ): Promise<Product> => {
-	return new Promise( async ( resolve, reject ) => {
-		/*=== f2c_start patch_product_admin_fields ===*/
-		const err = { message: "" };
-		const p: Product = await _product_save( req, err, { id, ...data }, false );
+export const patch_product_admin_fields = (req: ILRequest, id: string, data: any, cback: LCback = null): Promise<Product> => {
+  return new Promise(async (resolve, reject) => {
+    /*=== f2c_start patch_product_admin_fields ===*/
+    const err = { message: "" };
+    const p: Product = await _product_save(req, err, { id, ...data }, false);
 
-		if ( err.message ) return cback ? cback( err ) : reject( err );
+    if (err.message) return cback ? cback(err) : reject(err);
 
-		return cback ? cback( null, p ) : resolve( p );
-		/*=== f2c_end patch_product_admin_fields ===*/
-	} );
+    return cback ? cback(null, p) : resolve(p);
+    /*=== f2c_end patch_product_admin_fields ===*/
+  });
 };
 // }}}
 
@@ -243,15 +267,15 @@ export const patch_product_admin_fields = ( req: ILRequest, id: string, data: an
  * @return products: Product
  *
  */
-export const get_product_admin_list = ( req: ILRequest, id_category?: string, skip: number = 0, rows: number = -1, cback: LCback = null ): Promise<Product[]> => {
-	return new Promise( async ( resolve, reject ) => {
-		/*=== f2c_start get_product_admin_list ===*/
-		const domain = await system_domain_get_by_session( req );
-		const prods: Product[] = await adb_find_all( req.db, COLL_PRODUCTS, { domain: domain.code, id_category }, ProductKeys, { rows, skip } );
+export const get_product_admin_list = (req: ILRequest, id_category?: string, skip: number = 0, rows: number = -1, cback: LCback = null): Promise<Product[]> => {
+  return new Promise(async (resolve, reject) => {
+    /*=== f2c_start get_product_admin_list ===*/
+    const domain = await system_domain_get_by_session(req);
+    const prods: Product[] = await adb_find_all(req.db, COLL_PRODUCTS, { domain: domain.code, id_category }, ProductKeys, { rows, skip });
 
-		return cback ? cback( null, prods ) : resolve( prods );
-		/*=== f2c_end get_product_admin_list ===*/
-	} );
+    return cback ? cback(null, prods) : resolve(prods);
+    /*=== f2c_end get_product_admin_list ===*/
+  });
 };
 // }}}
 
@@ -265,14 +289,14 @@ export const get_product_admin_list = ( req: ILRequest, id_category?: string, sk
  * @return id: string
  *
  */
-export const delete_product_admin_del = ( req: ILRequest, id: string, cback: LCback = null ): Promise<string> => {
-	return new Promise( async ( resolve, reject ) => {
-		/*=== f2c_start delete_product_admin_del ===*/
-		await adb_del_one( req.db, COLL_PRODUCTS, { id } );
+export const delete_product_admin_del = (req: ILRequest, id: string, cback: LCback = null): Promise<string> => {
+  return new Promise(async (resolve, reject) => {
+    /*=== f2c_start delete_product_admin_del ===*/
+    await adb_del_one(req.db, COLL_PRODUCTS, { id });
 
-		return cback ? cback( null, id ) : resolve( id );
-		/*=== f2c_end delete_product_admin_del ===*/
-	} );
+    return cback ? cback(null, id) : resolve(id);
+    /*=== f2c_end delete_product_admin_del ===*/
+  });
 };
 // }}}
 
@@ -287,12 +311,12 @@ export const delete_product_admin_del = ( req: ILRequest, id: string, cback: LCb
  * @return product: Product
  *
  */
-export const get_product_admin_tag = ( req: ILRequest, id: string, tags: string[], cback: LCback = null ): Promise<Product> => {
-	return new Promise( async ( resolve, reject ) => {
-		/*=== f2c_start get_product_admin_tag ===*/
+export const get_product_admin_tag = (req: ILRequest, id: string, tags: string[], cback: LCback = null): Promise<Product> => {
+  return new Promise(async (resolve, reject) => {
+    /*=== f2c_start get_product_admin_tag ===*/
 
-		/*=== f2c_end get_product_admin_tag ===*/
-	} );
+    /*=== f2c_end get_product_admin_tag ===*/
+  });
 };
 // }}}
 
@@ -311,18 +335,18 @@ export const get_product_admin_tag = ( req: ILRequest, id: string, tags: string[
  * @return product: Product
  *
  */
-export const get_product_details = ( req: ILRequest, id?: string, code?: string, code_forn?: string, cback: LCback = null ): Promise<Product> => {
-	return new Promise( async ( resolve, reject ) => {
-		/*=== f2c_start get_product_details ===*/
-		product_get( req, id, code, code_forn, ( err, prod ) => {
-			if ( err ) return cback ? cback( err ) : reject( err );
+export const get_product_details = (req: ILRequest, id?: string, code?: string, code_forn?: string, cback: LCback = null): Promise<Product> => {
+  return new Promise(async (resolve, reject) => {
+    /*=== f2c_start get_product_details ===*/
+    product_get(req, id, code, code_forn, (err, prod) => {
+      if (err) return cback ? cback(err) : reject(err);
 
-			keys_filter( prod, ProductKeys );
+      keys_filter(prod, ProductKeys);
 
-			return cback ? cback( null, prod ) : resolve( prod );
-		} );
-		/*=== f2c_end get_product_details ===*/
-	} );
+      return cback ? cback(null, prod) : resolve(prod);
+    });
+    /*=== f2c_end get_product_details ===*/
+  });
 };
 // }}}
 
@@ -341,14 +365,14 @@ export const get_product_details = ( req: ILRequest, id?: string, code?: string,
  * @return products: Product
  *
  */
-export const get_product_list = ( req: ILRequest, id_category?: string, skip: number = 0, rows: number = -1, cback: LCback = null ): Promise<Product[]> => {
-	return new Promise( async ( resolve, reject ) => {
-		/*=== f2c_start get_product_list ===*/
-		const domain = await system_domain_get_by_session( req );
-		const res: Product[] = await adb_find_all( req.db, COLL_PRODUCTS, { id_category, visible: true, domain: domain.code }, ProductKeys, { rows, skip } );
-		return cback ? cback( null, res ) : resolve( res );
-		/*=== f2c_end get_product_list ===*/
-	} );
+export const get_product_list = (req: ILRequest, id_category?: string, skip: number = 0, rows: number = -1, cback: LCback = null): Promise<Product[]> => {
+  return new Promise(async (resolve, reject) => {
+    /*=== f2c_start get_product_list ===*/
+    const domain = await system_domain_get_by_session(req);
+    const res: Product[] = await adb_find_all(req.db, COLL_PRODUCTS, { id_category, visible: true, domain: domain.code }, ProductKeys, { rows, skip });
+    return cback ? cback(null, res) : resolve(res);
+    /*=== f2c_end get_product_list ===*/
+  });
 };
 // }}}
 
@@ -362,66 +386,101 @@ export const get_product_list = ( req: ILRequest, id_category?: string, skip: nu
  * @return product: Product
  *
  */
-export const get_product_admin_details = ( req: ILRequest, id: string, cback: LCback = null ): Promise<Product> => {
-	return new Promise( async ( resolve, reject ) => {
-		/*=== f2c_start get_product_admin_details ===*/
-		const domain = await system_domain_get_by_session( req );
-		const prod: Product = await adb_find_one( req.db, COLL_PRODUCTS, { id, domain: domain.code }, ProductKeys );
+export const get_product_admin_details = (req: ILRequest, id: string, cback: LCback = null): Promise<Product> => {
+  return new Promise(async (resolve, reject) => {
+    /*=== f2c_start get_product_admin_details ===*/
+    const domain = await system_domain_get_by_session(req);
+    const prod: Product = await adb_find_one(req.db, COLL_PRODUCTS, { id, domain: domain.code }, ProductKeys);
 
-		if ( !prod.id_category ) prod.id_category = 'undefined';
+    if (!prod.id_category) prod.id_category = 'undefined';
 
-		console.log( "==== PROD: ", prod );
+    console.log("==== PROD: ", prod);
 
-		return cback ? cback( null, prod ) : resolve( prod );
-		/*=== f2c_end get_product_admin_details ===*/
-	} );
+    return cback ? cback(null, prod) : resolve(prod);
+    /*=== f2c_end get_product_admin_details ===*/
+  });
 };
 // }}}
 
-// {{{ post_product_admin_import_csv ( req: ILRequest, file: File, cback: LCBack = null ): Promise<number>
+// {{{ post_product_admin_import_csv ( req: ILRequest, file?: File, cback: LCBack = null ): Promise<number>
 /**
  *
- * @param file - CSV File to read [req]
+ * @param file - CSV File to read [opt]
  *
  * @return products: number
  *
  */
-export const post_product_admin_import_csv = ( req: ILRequest, file: File, cback: LCback = null ): Promise<number> => {
-	return new Promise( async ( resolve, reject ) => {
-		/*=== f2c_start post_product_admin_import_csv ===*/
+export const post_product_admin_import_csv = (req: ILRequest, file?: File, cback: LCback = null): Promise<number> => {
+  return new Promise(async (resolve, reject) => {
+    /*=== f2c_start post_product_admin_import_csv ===*/
     let err: ILError = {
       message: "File not received correctly"
     };
 
-    if (!file) return cback ? cback(err) : reject(err);
+    let positions: Record<string, number> = {};
+
+    const domain = await system_domain_get_by_session(req);
+
+    let t_file = req.files['file'];
+    if (!t_file) return cback ? cback(err) : reject(err);
 
     err.message = "Couldn't read file";
-    const lines: string[] = file.text.toString().split('\n');
+
+    let lines: string[] = fs.read(t_file.tempFilePath).trimEnd().split('\n');
     if (!lines) return cback ? cback(err) : reject(err);
-    
+
+    lines[0].split('\t').forEach( (field, i) => {
+      positions[field] = i;
+    });
+
+    lines.splice(0, 1);
+
+    positions = _get_field_positions(positions);
+
     err.message = "Error pasing CSV";
+
     let uploaded_prods: number = 0;
-    lines.forEach( async (line) => {
-      const fields: string[] = line.split(',');
+    await Promise.all(lines.map(async (line) => {
+      const fields: string[] = line.split('\t');
       try {
         const prod: Product = {
           id: mkid('prod'),
-          id_maker: fields[0]
+          domain: domain.code,
+          visible: true,
+
+           id_maker: fields[ positions["id_maker"] ],
+        id_category: fields[ positions["id_category"] ],
+               code: fields[ positions["code"] ],
+          code_forn: fields[ positions["code_forn"] ],
+                sku: fields[ positions["sku"] ],
+               name: fields[ positions["name"] ],
+        description: fields[ positions["description"] ],
+  short_description: fields[ positions["short_description"] ],
+          price_vat: parseFloat( fields[ positions["price_vat"] ] ),
+     curr_price_vat: parseFloat( fields[ positions["curr_price_vat"] ] ),
+                vat: parseFloat( fields[ positions["vat"] ] ),
+              quant: parseFloat( fields[ positions["quant"] ] ),
+             weight: parseFloat( fields[ positions["weight"] ] ),
+             height: parseFloat( fields[ positions["height"] ] ),
+              width: parseFloat( fields[ positions["width"] ] ),
+              depth: parseFloat( fields[ positions["depth"] ] )
         };
 
-        const res = await adb_record_add(req.db, COLL_PRODUCTS, { prod });
-        if (res.err) return
+        console.log('=== ADDING:', prod);
+        await adb_record_add(req.db, COLL_PRODUCTS, prod);
 
         uploaded_prods++;
       } catch (e: unknown) {
         console.log('ERROR (CSV PARSING) =', e);
-        throw(e);
+        throw (err);
       }
-    });
 
-    return cback ? cback(uploaded_prods) : resolve(uploaded_prods);
-		/*=== f2c_end post_product_admin_import_csv ===*/
-	} );
+      return true;
+    }));
+
+    return cback ? cback(null, uploaded_prods) : resolve(uploaded_prods);
+    /*=== f2c_end post_product_admin_import_csv ===*/
+  });
 };
 // }}}
 
@@ -438,25 +497,25 @@ export const post_product_admin_import_csv = ( req: ILRequest, file: File, cback
  * @return : Product
  *
  */
-export const product_get = ( req: ILRequest, id?: string, code?: string, code_forn?: string, cback: LCback = null ): Promise<Product> => {
-	return new Promise( async ( resolve, reject ) => {
-		/*=== f2c_start product_get ===*/
-		const domain = await system_domain_get_by_session( req );
-		const [ filters, values ] = adb_prepare_filters( 'prod', { id, code, code_forn, domain: domain.code } );
-		const err = { "message": "No conditions specified" };
+export const product_get = (req: ILRequest, id?: string, code?: string, code_forn?: string, cback: LCback = null): Promise<Product> => {
+  return new Promise(async (resolve, reject) => {
+    /*=== f2c_start product_get ===*/
+    const domain = await system_domain_get_by_session(req);
+    const [filters, values] = adb_prepare_filters('prod', { id, code, code_forn, domain: domain.code });
+    const err = { "message": "No conditions specified" };
 
-		if ( !filters ) return cback ? cback( err ) : reject( err );
+    if (!filters) return cback ? cback(err) : reject(err);
 
-		const prod = await adb_query_one( req.db, `FOR prod IN ${ COLL_PRODUCTS } ${ filters } RETURN prod`, values );
+    const prod = await adb_query_one(req.db, `FOR prod IN ${COLL_PRODUCTS} ${filters} RETURN prod`, values);
 
-		if ( !prod ) {
-			err.message = "Product not found";
-			return cback ? cback( null, null ) : resolve( null );
-		}
+    if (!prod) {
+      err.message = "Product not found";
+      return cback ? cback(null, null) : resolve(null);
+    }
 
-		return cback ? cback( null, prod ) : resolve( prod );
-		/*=== f2c_end product_get ===*/
-	} );
+    return cback ? cback(null, prod) : resolve(prod);
+    /*=== f2c_end product_get ===*/
+  });
 };
 // }}}
 
@@ -500,23 +559,23 @@ export const product_get = ( req: ILRequest, id?: string, code?: string, code_fo
  * @return : Product
  *
  */
-export const product_create = ( req: ILRequest, name: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], cback: LCback = null ): Promise<Product> => {
-	return new Promise( async ( resolve, reject ) => {
-		/*=== f2c_start product_create ===*/
-		const err = { message: "" };
-		const domain = await system_domain_get_by_session( req );
-		const p: Product = await _product_save( req, err, {
-			id: mkid( 'prod' ), domain: domain.code,
-			name, code, id_maker, id_category, id_availability, code_forn, description, short_description, url,
-			cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level,
-			visible, relevance, status, weight, width, height, depth, sku, tags
-		}, true );
+export const product_create = (req: ILRequest, name: string, code?: string, id_maker?: string, id_category?: string, id_availability?: number, code_forn?: string, sku?: string, description?: string, short_description?: string, url?: string, cost?: number, price_net?: number, price_vat?: number, curr_price_net?: number, curr_price_vat?: number, vat?: number, free?: boolean, discount?: number, quant?: number, ordered?: number, available?: Date, level?: number, visible?: boolean, relevance?: number, status?: number, weight?: number, width?: number, height?: number, depth?: number, tags?: string[], cback: LCback = null): Promise<Product> => {
+  return new Promise(async (resolve, reject) => {
+    /*=== f2c_start product_create ===*/
+    const err = { message: "" };
+    const domain = await system_domain_get_by_session(req);
+    const p: Product = await _product_save(req, err, {
+      id: mkid('prod'), domain: domain.code,
+      name, code, id_maker, id_category, id_availability, code_forn, description, short_description, url,
+      cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level,
+      visible, relevance, status, weight, width, height, depth, sku, tags
+    }, true);
 
-		if ( err.message ) return cback ? cback( err ) : reject( err );
+    if (err.message) return cback ? cback(err) : reject(err);
 
-		return cback ? cback( null, p ) : resolve( p );
-		/*=== f2c_end product_create ===*/
-	} );
+    return cback ? cback(null, p) : resolve(p);
+    /*=== f2c_end product_create ===*/
+  });
 };
 // }}}
 
@@ -530,34 +589,34 @@ export const product_create = ( req: ILRequest, name: string, code?: string, id_
  * @return : boolean
  *
  */
-export const product_db_init = ( liwe: ILiWE, cback: LCback = null ): Promise<boolean> => {
-	return new Promise( async ( resolve, reject ) => {
-		_liwe = liwe;
+export const product_db_init = (liwe: ILiWE, cback: LCback = null): Promise<boolean> => {
+  return new Promise(async (resolve, reject) => {
+    _liwe = liwe;
 
-		system_permissions_register( 'product', _module_perms );
+    system_permissions_register('product', _module_perms);
 
-		await adb_collection_init( liwe.db, COLL_PRODUCTS, [
-			{ type: "persistent", fields: [ "id" ], unique: true },
-			{ type: "persistent", fields: [ "domain" ], unique: false },
-			{ type: "persistent", fields: [ "id_owner" ], unique: false },
-			{ type: "persistent", fields: [ "id_maker" ], unique: false },
-			{ type: "persistent", fields: [ "id_category" ], unique: false },
-			{ type: "persistent", fields: [ "id_availability" ], unique: false },
-			{ type: "persistent", fields: [ "code" ], unique: false },
-			{ type: "persistent", fields: [ "code_forn" ], unique: false },
-			{ type: "persistent", fields: [ "sku" ], unique: false },
-			{ type: "persistent", fields: [ "name" ], unique: false },
-			{ type: "persistent", fields: [ "free" ], unique: false },
-			{ type: "persistent", fields: [ "visible" ], unique: false },
-			{ type: "persistent", fields: [ "status" ], unique: false },
-			{ type: "persistent", fields: [ "relevance" ], unique: false },
-			{ type: "persistent", fields: [ "tags[*]" ], unique: false },
-		], { drop: false } );
+    await adb_collection_init(liwe.db, COLL_PRODUCTS, [
+      { type: "persistent", fields: ["id"], unique: true },
+      { type: "persistent", fields: ["domain"], unique: false },
+      { type: "persistent", fields: ["id_owner"], unique: false },
+      { type: "persistent", fields: ["id_maker"], unique: false },
+      { type: "persistent", fields: ["id_category"], unique: false },
+      { type: "persistent", fields: ["id_availability"], unique: false },
+      { type: "persistent", fields: ["code"], unique: false },
+      { type: "persistent", fields: ["code_forn"], unique: false },
+      { type: "persistent", fields: ["sku"], unique: false },
+      { type: "persistent", fields: ["name"], unique: false },
+      { type: "persistent", fields: ["free"], unique: false },
+      { type: "persistent", fields: ["visible"], unique: false },
+      { type: "persistent", fields: ["status"], unique: false },
+      { type: "persistent", fields: ["relevance"], unique: false },
+      { type: "persistent", fields: ["tags[*]"], unique: false },
+    ], { drop: false });
 
-		/*=== f2c_start product_db_init ===*/
+    /*=== f2c_start product_db_init ===*/
 
-		/*=== f2c_end product_db_init ===*/
-	} );
+    /*=== f2c_end product_db_init ===*/
+  });
 };
 // }}}
 
