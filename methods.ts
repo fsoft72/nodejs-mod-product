@@ -53,7 +53,7 @@ const _product_save = ( req: ILRequest, err: ILError, params: Product, return_em
 		err.message = "";
 
 		// check if product code is not already in use
-		const cprod = await product_get( req, null, params.code, null );
+		const cprod = await product_get( req, params.id, params.code, null );
 		if ( cprod && params.id && cprod.id !== params.id ) {
 			err.message = "Product code already in use";
 			return cback ? cback( null, null ) : resolve( null );
