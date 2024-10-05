@@ -26,6 +26,7 @@ import { keys_filter, keys_valid, mkid, set_attr } from '../../liwe/utils';
 import { system_domain_get_by_session } from '../system/methods';
 import { tag_obj } from '../tag/methods';
 import { adb_query_one, adb_record_add, adb_find_all, adb_find_one, adb_prepare_filters, adb_del_one, adb_collection_init } from '../../liwe/db/arango';
+import * as fs from '../../liwe/fs';
 
 const _product_get = async ( req: ILRequest, id: string, return_empty: boolean = false ): Promise<Product> => {
 	const domain = await system_domain_get_by_session( req );
@@ -52,7 +53,7 @@ const _product_save = ( req: ILRequest, err: ILError, params: Product, return_em
 		err.message = "";
 
 		// check if product code is not already in use
-		const cprod = await product_get( req, null, params.code, null );
+		const cprod = await product_get( req, params.id, params.code, null );
 		if ( cprod && params.id && cprod.id !== params.id ) {
 			err.message = "Product code already in use";
 			return cback ? cback( null, null ) : resolve( null );
@@ -78,6 +79,29 @@ const _product_save = ( req: ILRequest, err: ILError, params: Product, return_em
 
 		return cback ? cback( null, prod ) : resolve( prod );
 	} );
+};
+
+const _get_field_positions = ( pos: Record<string, number> ): Record<string, number> => {
+	const positions: Record<string, number> = {
+		"id_maker": pos[ "Produttore" ],
+		"id_category": pos[ "Categoria" ],
+		"code": pos[ "Codice Prodotto" ],
+		"code_forn": pos[ "Codice Prodotto ( Assegnato dal Fornitore )" ],
+		"sku": pos[ "SKU" ],
+		"name": pos[ "Nome" ],
+		"description": pos[ "Descrizione" ],
+		"short_description": pos[ "Descrizione Breve" ],
+		"price_vat": pos[ "Prezzo IVATO" ],
+		"curr_price_vat": pos[ "Prezzo Corrente + IVA" ],
+		"vat": pos[ "IVA" ],
+		"quant": pos[ "Quantità" ],
+		"weight": pos[ "Peso [g]" ],
+		"height": pos[ "Altezza [mm]" ],
+		"width": pos[ "Larghezza [mm]" ],
+		"depth": pos[ "Profondita’ [mm]" ]
+	};
+
+	return positions;
 };
 /*=== f2c_end __file_header ===*/
 
@@ -236,9 +260,9 @@ export const patch_product_admin_fields = ( req: ILRequest, id: string, data: an
  * This function returns a list of full `Product` structure.
  * This function supports pagination.
  *
- * @param id_category -  [opt]
- * @param skip -  [opt]
- * @param rows -  [opt]
+ * @param id_category -	[opt]
+ * @param skip -	[opt]
+ * @param rows -	[opt]
  *
  * @return products: Product
  *
@@ -300,7 +324,7 @@ export const get_product_admin_tag = ( req: ILRequest, id: string, tags: string[
 /**
  *
  * Returns all product details only if the product is `visible`.
- * The product can be identified by  `id`, `code` or `code_forn`.
+ * The product can be identified by	`id`, `code` or `code_forn`.
  * You can pass more than a field, but one is enough.
  * This function returns the full `Product` structure
  *
@@ -374,6 +398,88 @@ export const get_product_admin_details = ( req: ILRequest, id: string, cback: LC
 
 		return cback ? cback( null, prod ) : resolve( prod );
 		/*=== f2c_end get_product_admin_details ===*/
+	} );
+};
+// }}}
+
+// {{{ post_product_admin_import_csv ( req: ILRequest, file?: File, cback: LCBack = null ): Promise<number>
+/**
+ *
+ * @param file - CSV File to read [opt]
+ *
+ * @return products: number
+ *
+ */
+export const post_product_admin_import_csv = ( req: ILRequest, file?: File, cback: LCback = null ): Promise<number> => {
+	return new Promise( async ( resolve, reject ) => {
+		/*=== f2c_start post_product_admin_import_csv ===*/
+		let err: ILError = {
+			message: "File not received correctly"
+		};
+
+		let positions: Record<string, number> = {};
+
+		const domain = await system_domain_get_by_session( req );
+
+		let t_file = req.files[ 'file' ];
+		if ( !t_file ) return cback ? cback( err ) : reject( err );
+
+		err.message = "Couldn't read file";
+
+		let lines: string[] = fs.read( t_file.tempFilePath ).trimEnd().split( '\n' );
+		if ( !lines ) return cback ? cback( err ) : reject( err );
+
+		lines[ 0 ].split( '\t' ).forEach( ( field, i ) => {
+			positions[ field ] = i;
+		} );
+
+		lines.splice( 0, 1 );
+
+		positions = _get_field_positions( positions );
+
+		err.message = "Error pasing CSV";
+
+		let uploaded_prods: number = 0;
+		await Promise.all( lines.map( async ( line ) => {
+			const fields: string[] = line.split( '\t' );
+			try {
+				const prod: Product = {
+					id: mkid( 'prod' ),
+					domain: domain.code,
+					visible: true,
+
+					id_maker: fields[ positions[ "id_maker" ] ],
+					id_category: fields[ positions[ "id_category" ] ],
+					code: fields[ positions[ "code" ] ],
+					code_forn: fields[ positions[ "code_forn" ] ],
+					sku: fields[ positions[ "sku" ] ],
+					name: fields[ positions[ "name" ] ],
+					description: fields[ positions[ "description" ] ],
+					short_description: fields[ positions[ "short_description" ] ],
+					price_vat: parseFloat( fields[ positions[ "price_vat" ] ] ),
+					curr_price_vat: parseFloat( fields[ positions[ "curr_price_vat" ] ] ),
+					vat: parseFloat( fields[ positions[ "vat" ] ] ),
+					quant: parseFloat( fields[ positions[ "quant" ] ] ),
+					weight: parseFloat( fields[ positions[ "weight" ] ] ),
+					height: parseFloat( fields[ positions[ "height" ] ] ),
+					width: parseFloat( fields[ positions[ "width" ] ] ),
+					depth: parseFloat( fields[ positions[ "depth" ] ] )
+				};
+
+				console.log( '=== ADDING:', prod );
+				await adb_record_add( req.db, COLL_PRODUCTS, prod );
+
+				uploaded_prods++;
+			} catch ( e: unknown ) {
+				console.log( 'ERROR (CSV PARSING) =', e );
+				throw ( err );
+			}
+
+			return true;
+		} ) );
+
+		return cback ? cback( null, uploaded_prods ) : resolve( uploaded_prods );
+		/*=== f2c_end post_product_admin_import_csv ===*/
 	} );
 };
 // }}}
@@ -513,5 +619,3 @@ export const product_db_init = ( liwe: ILiWE, cback: LCback = null ): Promise<bo
 	} );
 };
 // }}}
-
-

@@ -1,0 +1,123 @@
+{
+  "system": {
+    "base_url": "http://localhost:12000",
+    "output_file_name": "/tmp/academy.log",
+    "authorization_template": "Bearer %(token)s",
+    "stop_on_error": true
+  },
+  "actions": [
+    {
+      "action": "include",
+      "filename": "../../user/tests/user.debug_login.json",
+      "exec": true
+    },
+    {
+      "action": "batch_exec",
+      "name": "switch_admin"
+    },
+    {
+      "method": "POST",
+      "url": "/api/product/admin/import/csv",
+      "files": {
+        "file": "./sample.csv"
+      },
+      "tests": [
+        {
+          "field": "products",
+          "mode": ">=",
+          "value": 6
+        }
+      ]
+    },
+    {
+      "method": "get",
+      "url": "/api/product/list",
+      "auth": true,
+      "tests": [
+        {
+          "field": "products",
+          "mode": "LEN",
+          "value": 6
+        },
+        {
+          "field": "products[0].id_maker",
+          "value": "Barilla"
+        }
+      ],
+      "fields": [
+        [
+          "products[0].id",
+          "prod0_id"
+        ],
+        [
+          "products[1].id",
+          "prod1_id"
+        ],
+        [
+          "products[2].id",
+          "prod2_id"
+        ],
+        [
+          "products[3].id",
+          "prod3_id"
+        ],
+        [
+          "products[4].id",
+          "prod4_id"
+        ],
+        [
+          "products[5].id",
+          "prod5_id"
+        ]
+      ]
+    },
+    {
+      "method": "DELETE",
+      "url": "/api/product/admin/del",
+      "auth": true,
+      "params": {
+        "id": "%(prod1_id)s"
+      }
+    },
+    {
+      "method": "DELETE",
+      "url": "/api/product/admin/del",
+      "auth": true,
+      "params": {
+        "id": "%(prod2_id)s"
+      }
+    },
+    {
+      "method": "DELETE",
+      "url": "/api/product/admin/del",
+      "auth": true,
+      "params": {
+        "id": "%(prod2_id)s"
+      }
+    },
+    {
+      "method": "DELETE",
+      "url": "/api/product/admin/del",
+      "auth": true,
+      "params": {
+        "id": "%(prod3_id)s"
+      }
+    },
+    {
+      "method": "DELETE",
+      "url": "/api/product/admin/del",
+      "auth": true,
+      "params": {
+        "id": "%(prod4_id)s"
+      }
+    },
+    {
+      "method": "DELETE",
+      "url": "/api/product/admin/del",
+      "auth": true,
+      "params": {
+        "id": "%(prod5_id)s"
+      }
+    }
+  ]
+}
