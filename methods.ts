@@ -247,7 +247,7 @@ export const get_product_admin_list = ( req: ILRequest, id_category?: string, sk
 	return new Promise( async ( resolve, reject ) => {
 		/*=== f2c_start get_product_admin_list ===*/
 		const domain = await system_domain_get_by_session( req );
-		const prods: Product[] = await adb_find_all( req.db, COLL_PRODUCTS, { domain: domain.code, id_category }, ProductKeys, { rows, skip } );
+		const prods: Product[] = await adb_find_all( req.db, COLL_PRODUCTS, { domain: domain.code, id_category }, ProductKeys, { rows, skip, sort: [ { field: 'code', desc: 0 } ] } );
 
 		return cback ? cback( null, prods ) : resolve( prods );
 		/*=== f2c_end get_product_admin_list ===*/
