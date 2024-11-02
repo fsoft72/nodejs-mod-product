@@ -1,0 +1,258 @@
+{
+    "actions": [
+        {
+            "method": "POST",
+            "url": "/api/category/admin/add",
+            "params": {
+                "title": "Alimentari",
+                "slug": "alimentari",
+                "description": "Articoli alimentari",
+                "visible": true
+            },
+            "fields": [
+                [
+                    "category.id",
+                    "id_categ_alimentari"
+                ]
+            ]
+        },
+        {
+            "method": "POST",
+            "url": "/api/category/admin/add",
+            "params": {
+                "title": "Linea Mandorla",
+                "slug": "mandorla",
+                "description": "Prodotti a base di mandorla",
+                "visible": true,
+                "id_parent": "%(id_categ_alimentari)s"
+            },
+            "fields": [
+                [
+                    "category.id",
+                    "id_categ_mandorla"
+                ]
+            ]
+        },
+        {
+            "method": "POST",
+            "url": "/api/category/admin/add",
+            "params": {
+                "title": "Linea Creme",
+                "slug": "creme",
+                "description": "Creme a base di mandorla",
+                "visible": true,
+                "id_parent": "%(id_categ_alimentari)s"
+            },
+            "fields": [
+                [
+                    "category.id",
+                    "id_categ_creme"
+                ]
+            ]
+        },
+        {
+            "method": "POST",
+            "url": "/api/category/admin/add",
+            "params": {
+                "title": "Linea Mix Mandorla",
+                "slug": "mix-mandorla",
+                "description": "Mandorle e altri ingredienti",
+                "visible": true,
+                "id_parent": "%(id_categ_alimentari)s"
+            },
+            "fields": [
+                [
+                    "category.id",
+                    "id_categ_mix_mandorla"
+                ]
+            ]
+        },
+        {
+            "method": "POST",
+            "url": "/api/category/admin/add",
+            "params": {
+                "title": "Linea Semi",
+                "slug": "semi",
+                "description": "Semi",
+                "visible": true,
+                "id_parent": "%(id_categ_alimentari)s"
+            },
+            "fields": [
+                [
+                    "category.id",
+                    "id_categ_semi"
+                ]
+            ]
+        },
+        {
+            "method": "POST",
+            "url": "/api/category/admin/add",
+            "params": {
+                "title": "Linea Legumi",
+                "slug": "legumi",
+                "description": "Legumi",
+                "visible": true,
+                "id_parent": "%(id_categ_alimentari)s"
+            },
+            "fields": [
+                [
+                    "category.id",
+                    "id_categ_legumi"
+                ]
+            ]
+        },
+        {
+            "method": "POST",
+            "url": "/api/category/admin/add",
+            "params": {
+                "title": "Pasta con farina di mandorla",
+                "slug": "pasta-farina-mandorla",
+                "description": "Pasta con farina di mandorla",
+                "visible": true,
+                "id_parent": "%(id_categ_alimentari)s"
+            },
+            "fields": [
+                [
+                    "category.id",
+                    "id_categ_pasta_farina_mandorla"
+                ]
+            ]
+        },
+        {
+            "method": "POST",
+            "url": "/api/category/admin/add",
+            "params": {
+                "title": "Olio di mandorla",
+                "slug": "olio-mandorla",
+                "description": "Olio di mandorla",
+                "visible": true,
+                "id_parent": "%(id_categ_alimentari)s"
+            },
+            "fields": [
+                [
+                    "category.id",
+                    "id_categ_olio_mandorla"
+                ]
+            ]
+        },
+        {
+            "method": "POST",
+            "url": "/api/category/admin/add",
+            "params": {
+                "title": "Olio Extra Vergine di Oliva",
+                "slug": "olio-oliva-bio",
+                "description": "OLIO EXTRA VERGINE D'OLIVA BIO",
+                "visible": true,
+                "id_parent": "%(id_categ_alimentari)s"
+            },
+            "fields": [
+                [
+                    "category.id",
+                    "id_categ_olio_oliva_bio"
+                ]
+            ]
+        },
+        {
+            "method": "POST",
+            "url": "/api/category/admin/add",
+            "params": {
+                "title": "Linea Mandolat",
+                "slug": "mandolat",
+                "description": "Linea Mandolat",
+                "visible": true,
+                "id_parent": "%(id_categ_alimentari)s"
+            },
+            "fields": [
+                [
+                    "category.id",
+                    "id_categ_mandolat"
+                ]
+            ]
+        },
+        {
+            "method": "POST",
+            "url": "/api/category/admin/add",
+            "params": {
+                "title": "Linea Mandorella",
+                "slug": "mandorella",
+                "description": "Linea Mandorella",
+                "visible": true,
+                "id_parent": "%(id_categ_alimentari)s"
+            },
+            "fields": [
+                [
+                    "category.id",
+                    "id_categ_mandorella"
+                ]
+            ]
+        },
+        {
+            "method": "POST",
+            "url": "/api/category/admin/add",
+            "params": {
+                "title": "Linea Mandamisu",
+                "slug": "mandamisu",
+                "description": "Linea Mandamisu",
+                "visible": true,
+                "id_parent": "%(id_categ_alimentari)s"
+            },
+            "fields": [
+                [
+                    "category.id",
+                    "id_categ_mandamisu"
+                ]
+            ]
+        },
+        {
+            "method": "POST",
+            "url": "/api/category/admin/add",
+            "params": {
+                "title": "Linea Burrella",
+                "slug": "burrella",
+                "description": "Linea Burrella",
+                "visible": true,
+                "id_parent": "%(id_categ_alimentari)s"
+            },
+            "fields": [
+                [
+                    "category.id",
+                    "id_categ_burrella"
+                ]
+            ]
+        },
+        {
+            "method": "POST",
+            "url": "/api/category/admin/add",
+            "params": {
+                "title": "Linea Stagionati",
+                "slug": "stagionati",
+                "description": "Linea Stagionati",
+                "visible": true,
+                "id_parent": "%(id_categ_alimentari)s"
+            },
+            "fields": [
+                [
+                    "category.id",
+                    "id_categ_stagionati"
+                ]
+            ]
+        },
+        {
+            "method": "POST",
+            "url": "/api/category/admin/add",
+            "params": {
+                "title": "Linea Colazione",
+                "slug": "colazione",
+                "description": "Linea Colazione",
+                "visible": true,
+                "id_parent": "%(id_categ_alimentari)s"
+            },
+            "fields": [
+                [
+                    "category.id",
+                    "id_categ_colazione"
+                ]
+            ]
+        }
+    ]
+}

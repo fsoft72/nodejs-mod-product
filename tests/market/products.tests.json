@@ -1,0 +1,2151 @@
+{
+    "actions": [
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA IN GUSCIO - 10kg",
+                "code": "MANGUS10KG",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANGUS10KG",
+                "description": "MANDORLA IN GUSCIO - 10kg",
+                "short_description": "MANDORLA IN GUSCIO - 10kg",
+                "cost": 72.11,
+                "price_net": 72.11,
+                "price_vat": "74.99",
+                "vat": "4",
+                "curr_price_net": 58.49,
+                "curr_price_vat": "60.83",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA IN GUSCIO - 5kg",
+                "code": "MANGUS5KG",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANGUS5KG",
+                "description": "MANDORLA IN GUSCIO - 5kg",
+                "short_description": "MANDORLA IN GUSCIO - 5kg",
+                "cost": 36.53,
+                "price_net": 36.53,
+                "price_vat": "37.99",
+                "vat": "4",
+                "curr_price_net": 29.63,
+                "curr_price_vat": "30.82",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA IN GUSCIO - 1kg",
+                "code": "MANGUS1KG",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANGUS1KG",
+                "description": "MANDORLA IN GUSCIO - 1kg",
+                "short_description": "MANDORLA IN GUSCIO - 1kg",
+                "cost": 7.38,
+                "price_net": 7.38,
+                "price_vat": "7.68",
+                "vat": "4",
+                "curr_price_net": 5.99,
+                "curr_price_vat": "6.23",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA IN GUSCIO - 500gr",
+                "code": "MANGUS500",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANGUS500",
+                "description": "MANDORLA IN GUSCIO - 500gr",
+                "short_description": "MANDORLA IN GUSCIO - 500gr",
+                "cost": 5.54,
+                "price_net": 5.54,
+                "price_vat": "5.76",
+                "vat": "4",
+                "curr_price_net": 4.49,
+                "curr_price_vat": "4.67",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA IN GUSCIO - 500gr",
+                "code": "MANGUS500SC",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANGUS500SC",
+                "description": "MANDORLA IN GUSCIO - 500gr",
+                "short_description": "MANDORLA IN GUSCIO - 500gr",
+                "cost": 6.37,
+                "price_net": 6.37,
+                "price_vat": "6.62",
+                "vat": "4",
+                "curr_price_net": 5.16,
+                "curr_price_vat": "5.37",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA SGUSCIATA - 10kg",
+                "code": "MANSGU10KG",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANSGU10KG",
+                "description": "MANDORLA SGUSCIATA - 10kg",
+                "short_description": "MANDORLA SGUSCIATA - 10kg",
+                "cost": 202.88,
+                "price_net": 202.88,
+                "price_vat": "210.99",
+                "vat": "4",
+                "curr_price_net": 164.58,
+                "curr_price_vat": "171.16",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA SGUSCIATA - 5kg",
+                "code": "MANSGU5KG",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANSGU5KG",
+                "description": "MANDORLA SGUSCIATA - 5kg",
+                "short_description": "MANDORLA SGUSCIATA - 5kg",
+                "cost": 101.43,
+                "price_net": 101.43,
+                "price_vat": "105.49",
+                "vat": "4",
+                "curr_price_net": 82.28,
+                "curr_price_vat": "85.57",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA SGUSCIATA - 1kg",
+                "code": "MANSGU1KGT",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANSGU1KGT",
+                "description": "MANDORLA SGUSCIATA - 1kg",
+                "short_description": "MANDORLA SGUSCIATA - 1kg",
+                "cost": 20.33,
+                "price_net": 20.33,
+                "price_vat": "21.14",
+                "vat": "4",
+                "curr_price_net": 16.49,
+                "curr_price_vat": "17.15",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA SGUSCIATA - 500gr",
+                "code": "MANSGU500B",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANSGU500B",
+                "description": "MANDORLA SGUSCIATA - 500gr",
+                "short_description": "MANDORLA SGUSCIATA - 500gr",
+                "cost": 12.01,
+                "price_net": 12.01,
+                "price_vat": "12.49",
+                "vat": "4",
+                "curr_price_net": 9.74,
+                "curr_price_vat": "10.13",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA SGUSCIATA - 500gr",
+                "code": "MANSGU500",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANSGU500",
+                "description": "MANDORLA SGUSCIATA - 500gr",
+                "short_description": "MANDORLA SGUSCIATA - 500gr",
+                "cost": 13.81,
+                "price_net": 13.81,
+                "price_vat": "14.36",
+                "vat": "4",
+                "curr_price_net": 11.2,
+                "curr_price_vat": "11.65",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA SGUSCIATA - 200gr",
+                "code": "MANSGU200",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANSGU200",
+                "description": "MANDORLA SGUSCIATA - 200gr",
+                "short_description": "MANDORLA SGUSCIATA - 200gr",
+                "cost": 5.54,
+                "price_net": 5.54,
+                "price_vat": "5.76",
+                "vat": "4",
+                "curr_price_net": 4.49,
+                "curr_price_vat": "4.67",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA SGUSCIATA TOSTATA - 5kg",
+                "code": "MANSGUTOS5KG",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANSGUTOS5KG",
+                "description": "MANDORLA SGUSCIATA TOSTATA - 5kg",
+                "short_description": "MANDORLA SGUSCIATA TOSTATA - 5kg",
+                "cost": 147.11,
+                "price_net": 147.11,
+                "price_vat": "152.99",
+                "vat": "4",
+                "curr_price_net": 119.34,
+                "curr_price_vat": "124.11",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA SGUSCIATA TOSTATA - 500gr",
+                "code": "MANSGUTOS500",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANSGUTOS500",
+                "description": "MANDORLA SGUSCIATA TOSTATA - 500gr",
+                "short_description": "MANDORLA SGUSCIATA TOSTATA - 500gr",
+                "cost": 14.87,
+                "price_net": 14.87,
+                "price_vat": "15.46",
+                "vat": "4",
+                "curr_price_net": 12.06,
+                "curr_price_vat": "12.54",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA SGUSCIATA TOSTATA - 200gr",
+                "code": "MANSGUTOS200",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANSGUTOS200",
+                "description": "MANDORLA SGUSCIATA TOSTATA - 200gr",
+                "short_description": "MANDORLA SGUSCIATA TOSTATA - 200gr",
+                "cost": 6.46,
+                "price_net": 6.46,
+                "price_vat": "6.72",
+                "vat": "4",
+                "curr_price_net": 5.24,
+                "curr_price_vat": "5.45",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA PELATA - 10kg",
+                "code": "MANPEL10KG",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANPEL10KG",
+                "description": "MANDORLA PELATA - 10kg",
+                "short_description": "MANDORLA PELATA - 10kg",
+                "cost": 236.53,
+                "price_net": 236.53,
+                "price_vat": "245.99",
+                "vat": "4",
+                "curr_price_net": 191.88,
+                "curr_price_vat": "199.55",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA PELATA - 5kg",
+                "code": "MANPEL5KG",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANPEL5KG",
+                "description": "MANDORLA PELATA - 5kg",
+                "short_description": "MANDORLA PELATA - 5kg",
+                "cost": 118.26,
+                "price_net": 118.26,
+                "price_vat": "122.99",
+                "vat": "4",
+                "curr_price_net": 95.93,
+                "curr_price_vat": "99.77",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA PELATA - 1kg",
+                "code": "MANPEL1KG",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANPEL1KG",
+                "description": "MANDORLA PELATA - 1kg",
+                "short_description": "MANDORLA PELATA - 1kg",
+                "cost": 23.11,
+                "price_net": 23.11,
+                "price_vat": "24.03",
+                "vat": "4",
+                "curr_price_net": 18.74,
+                "curr_price_vat": "19.49",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA PELATA - 500gr",
+                "code": "MANPEL500",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANPEL500",
+                "description": "MANDORLA PELATA - 500gr",
+                "short_description": "MANDORLA PELATA - 500gr",
+                "cost": 15.93,
+                "price_net": 15.93,
+                "price_vat": "16.57",
+                "vat": "4",
+                "curr_price_net": 12.92,
+                "curr_price_vat": "13.44",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA PELATA - 200gr",
+                "code": "MANPEL200",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANPEL200",
+                "description": "MANDORLA PELATA - 200gr",
+                "short_description": "MANDORLA PELATA - 200gr",
+                "cost": 6.46,
+                "price_net": 6.46,
+                "price_vat": "6.72",
+                "vat": "4",
+                "curr_price_net": 5.24,
+                "curr_price_vat": "5.45",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA PELATA TOSTATA - 500gr",
+                "code": "MANPELTOS500",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANPELTOS500",
+                "description": "MANDORLA PELATA TOSTATA - 500gr",
+                "short_description": "MANDORLA PELATA TOSTATA - 500gr",
+                "cost": 17.0,
+                "price_net": 17.0,
+                "price_vat": "17.68",
+                "vat": "4",
+                "curr_price_net": 13.79,
+                "curr_price_vat": "14.34",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA PELATA TOSTATA - 200gr",
+                "code": "MANPELTOS200",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANPELTOS200",
+                "description": "MANDORLA PELATA TOSTATA - 200gr",
+                "short_description": "MANDORLA PELATA TOSTATA - 200gr",
+                "cost": 7.38,
+                "price_net": 7.38,
+                "price_vat": "7.68",
+                "vat": "4",
+                "curr_price_net": 5.99,
+                "curr_price_vat": "6.23",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "30 MANDORLE AL GIORNO SCATOLINA LATTA",
+                "code": "MANSGU30",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANSGU30",
+                "description": "30 MANDORLE AL GIORNO SCATOLINA LATTA",
+                "short_description": "30 MANDORLE AL GIORNO SCATOLINA LATTA",
+                "cost": 3.69,
+                "price_net": 3.69,
+                "price_vat": "3.84",
+                "vat": "4",
+                "curr_price_net": 2.99,
+                "curr_price_vat": "3.11",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA AL FONDENTE - 1kg",
+                "code": "MSCF1KG",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MSCF1KG",
+                "description": "MANDORLA AL FONDENTE - 1kg",
+                "short_description": "MANDORLA AL FONDENTE - 1kg",
+                "cost": 24.7,
+                "price_net": 24.7,
+                "price_vat": "27.17",
+                "vat": "10",
+                "curr_price_net": 21.19,
+                "curr_price_vat": "23.31",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA AL FONDENTE - 200gr",
+                "code": "MSCF200",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MSCF200",
+                "description": "MANDORLA AL FONDENTE - 200gr",
+                "short_description": "MANDORLA AL FONDENTE - 200gr",
+                "cost": 5.77,
+                "price_net": 5.77,
+                "price_vat": "6.35",
+                "vat": "10",
+                "curr_price_net": 4.95,
+                "curr_price_vat": "5.45",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA AL FONDENTE - 80gr",
+                "code": "MSCF80B",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MSCF80B",
+                "description": "MANDORLA AL FONDENTE - 80gr",
+                "short_description": "MANDORLA AL FONDENTE - 80gr",
+                "cost": 3.3,
+                "price_net": 3.3,
+                "price_vat": "3.63",
+                "vat": "10",
+                "curr_price_net": 2.83,
+                "curr_price_vat": "3.11",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA AL FONDENTE CON GRANELLA - 1kg",
+                "code": "MSFG1KG",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MSFG1KG",
+                "description": "MANDORLA AL FONDENTE CON GRANELLA - 1kg",
+                "short_description": "MANDORLA AL FONDENTE CON GRANELLA - 1kg",
+                "cost": 24.7,
+                "price_net": 24.7,
+                "price_vat": "27.17",
+                "vat": "10",
+                "curr_price_net": 21.19,
+                "curr_price_vat": "23.31",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA AL FONDENTE CON GRANELLA - 200gr",
+                "code": "MSFG200",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MSFG200",
+                "description": "MANDORLA AL FONDENTE CON GRANELLA - 200gr",
+                "short_description": "MANDORLA AL FONDENTE CON GRANELLA - 200gr",
+                "cost": 5.77,
+                "price_net": 5.77,
+                "price_vat": "6.35",
+                "vat": "10",
+                "curr_price_net": 4.95,
+                "curr_price_vat": "5.45",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORLA AL FONDENTE CON GRANELLA - 80gr",
+                "code": "MSFG80B",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MSFG80B",
+                "description": "MANDORLA AL FONDENTE CON GRANELLA - 80gr",
+                "short_description": "MANDORLA AL FONDENTE CON GRANELLA - 80gr",
+                "cost": 3.3,
+                "price_net": 3.3,
+                "price_vat": "3.63",
+                "vat": "10",
+                "curr_price_net": 2.83,
+                "curr_price_vat": "3.11",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "SCHIACCIA MANDORLE CON MANDORLE IN GUSCIO",
+                "code": "MANGUS500V",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "MANGUS500V",
+                "description": "SCHIACCIA MANDORLE CON MANDORLE IN GUSCIO",
+                "short_description": "SCHIACCIA MANDORLE CON MANDORLE IN GUSCIO",
+                "cost": 21.49,
+                "price_net": 21.49,
+                "price_vat": "26.22",
+                "vat": "22",
+                "curr_price_net": 20.45,
+                "curr_price_vat": "24.95",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "FARINA DI MANDORLA PELATA - 1kg",
+                "code": "FARMAN1KG",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "FARMAN1KG",
+                "description": "FARINA DI MANDORLA PELATA - 1kg",
+                "short_description": "FARINA DI MANDORLA PELATA - 1kg",
+                "cost": 26.12,
+                "price_net": 26.12,
+                "price_vat": "28.73",
+                "vat": "10",
+                "curr_price_net": 22.41,
+                "curr_price_vat": "24.65",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "FARINA DI MANDORLA PELATA - 500gr",
+                "code": "FARMAN500",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "FARMAN500",
+                "description": "FARINA DI MANDORLA PELATA - 500gr",
+                "short_description": "FARINA DI MANDORLA PELATA - 500gr",
+                "cost": 15.06,
+                "price_net": 15.06,
+                "price_vat": "16.57",
+                "vat": "10",
+                "curr_price_net": 12.93,
+                "curr_price_vat": "14.22",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "FARINA DI MANDORLA PELATA - 200gr",
+                "code": "FARMAN200",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "FARMAN200",
+                "description": "FARINA DI MANDORLA PELATA - 200gr",
+                "short_description": "FARINA DI MANDORLA PELATA - 200gr",
+                "cost": 6.11,
+                "price_net": 6.11,
+                "price_vat": "6.72",
+                "vat": "10",
+                "curr_price_net": 5.25,
+                "curr_price_vat": "5.77",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "FARINA DI MANDORLA SGUSCIATA - 200gr",
+                "code": "FARINT200",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "FARINT200",
+                "description": "FARINA DI MANDORLA SGUSCIATA - 200gr",
+                "short_description": "FARINA DI MANDORLA SGUSCIATA - 200gr",
+                "cost": 5.24,
+                "price_net": 5.24,
+                "price_vat": "5.76",
+                "vat": "10",
+                "curr_price_net": 4.49,
+                "curr_price_vat": "4.94",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "FARINA DI MANDORLA SGUSCIATA TOSTATA - 125gr",
+                "code": "FARINTTOS125",
+                "id_category": "%(id_categ_mandorla)s",
+                "code_forn": "FARINTTOS125",
+                "description": "FARINA DI MANDORLA SGUSCIATA TOSTATA - 125gr",
+                "short_description": "FARINA DI MANDORLA SGUSCIATA TOSTATA - 125gr",
+                "cost": 4.36,
+                "price_net": 4.36,
+                "price_vat": "4.80",
+                "vat": "10",
+                "curr_price_net": 3.75,
+                "curr_price_vat": "4.12",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "CREMA INTEGRALE - 250gr",
+                "code": "CRMI250",
+                "id_category": "%(id_categ_creme)s",
+                "code_forn": "CRMI250",
+                "description": "CREMA INTEGRALE - 250gr",
+                "short_description": "CREMA INTEGRALE - 250gr",
+                "cost": 6.6,
+                "price_net": 6.6,
+                "price_vat": "7.26",
+                "vat": "10",
+                "curr_price_net": 5.66,
+                "curr_price_vat": "6.23",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "CREMA MANDORLA PELATA - 250gr",
+                "code": "CRMP250",
+                "id_category": "%(id_categ_creme)s",
+                "code_forn": "CRMP250",
+                "description": "CREMA MANDORLA PELATA - 250gr",
+                "short_description": "CREMA MANDORLA PELATA - 250gr",
+                "cost": 8.25,
+                "price_net": 8.25,
+                "price_vat": "9.08",
+                "vat": "10",
+                "curr_price_net": 7.08,
+                "curr_price_vat": "7.79",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "CREMA MANDORLA PELATA - 150gr",
+                "code": "CRMP150",
+                "id_category": "%(id_categ_creme)s",
+                "code_forn": "CRMP150",
+                "description": "CREMA MANDORLA PELATA - 150gr",
+                "short_description": "CREMA MANDORLA PELATA - 150gr",
+                "cost": 5.77,
+                "price_net": 5.77,
+                "price_vat": "6.35",
+                "vat": "10",
+                "curr_price_net": 4.95,
+                "curr_price_vat": "5.45",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "CREMA AL CACAO - \"MACAO\" - 250gr",
+                "code": "CRMCAC250",
+                "id_category": "%(id_categ_creme)s",
+                "code_forn": "CRMCAC250",
+                "description": "CREMA AL CACAO - \"MACAO\" - 250gr",
+                "short_description": "CREMA AL CACAO - \"MACAO\" - 250gr",
+                "cost": 8.25,
+                "price_net": 8.25,
+                "price_vat": "9.08",
+                "vat": "10",
+                "curr_price_net": 7.08,
+                "curr_price_vat": "7.79",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "CREMA AL CACAO - \"MACAO\" - 150gr",
+                "code": "CRMCAC150",
+                "id_category": "%(id_categ_creme)s",
+                "code_forn": "CRMCAC150",
+                "description": "CREMA AL CACAO - \"MACAO\" - 150gr",
+                "short_description": "CREMA AL CACAO - \"MACAO\" - 150gr",
+                "cost": 5.77,
+                "price_net": 5.77,
+                "price_vat": "6.35",
+                "vat": "10",
+                "curr_price_net": 4.95,
+                "curr_price_vat": "5.45",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "CREMA DI ZUCCA E MANDORLA - 150gr",
+                "code": "CRMANZUC150",
+                "id_category": "%(id_categ_creme)s",
+                "code_forn": "CRMANZUC150",
+                "description": "CREMA DI ZUCCA E MANDORLA - 150gr",
+                "short_description": "CREMA DI ZUCCA E MANDORLA - 150gr",
+                "cost": 5.77,
+                "price_net": 5.77,
+                "price_vat": "6.35",
+                "vat": "10",
+                "curr_price_net": 4.95,
+                "curr_price_vat": "5.45",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "CREMA DI NOCCIOLA E MANDORLA - 150gr",
+                "code": "CRMANNOC150",
+                "id_category": "%(id_categ_creme)s",
+                "code_forn": "CRMANNOC150",
+                "description": "CREMA DI NOCCIOLA E MANDORLA - 150gr",
+                "short_description": "CREMA DI NOCCIOLA E MANDORLA - 150gr",
+                "cost": 5.77,
+                "price_net": 5.77,
+                "price_vat": "6.35",
+                "vat": "10",
+                "curr_price_net": 4.95,
+                "curr_price_vat": "5.45",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "CREMA DI ARACHIDI E MANDORLA - 150gr",
+                "code": "CRMANARAC150",
+                "id_category": "%(id_categ_creme)s",
+                "code_forn": "CRMANARAC150",
+                "description": "CREMA DI ARACHIDI E MANDORLA - 150gr",
+                "short_description": "CREMA DI ARACHIDI E MANDORLA - 150gr",
+                "cost": 5.77,
+                "price_net": 5.77,
+                "price_vat": "6.35",
+                "vat": "10",
+                "curr_price_net": 4.95,
+                "curr_price_vat": "5.45",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "CREMA DI ANACARDI E MANDORLA - 150gr",
+                "code": "CRMANANAC150",
+                "id_category": "%(id_categ_creme)s",
+                "code_forn": "CRMANANAC150",
+                "description": "CREMA DI ANACARDI E MANDORLA - 150gr",
+                "short_description": "CREMA DI ANACARDI E MANDORLA - 150gr",
+                "cost": 5.77,
+                "price_net": 5.77,
+                "price_vat": "6.35",
+                "vat": "10",
+                "curr_price_net": 4.95,
+                "curr_price_vat": "5.45",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "CREMA DI MIRTILLI ROSSI E MANDORLA - 150gr",
+                "code": "CRMANMIRT150",
+                "id_category": "%(id_categ_creme)s",
+                "code_forn": "CRMANMIRT150",
+                "description": "CREMA DI MIRTILLI ROSSI E MANDORLA - 150gr",
+                "short_description": "CREMA DI MIRTILLI ROSSI E MANDORLA - 150gr",
+                "cost": 5.77,
+                "price_net": 5.77,
+                "price_vat": "6.35",
+                "vat": "10",
+                "curr_price_net": 4.95,
+                "curr_price_vat": "5.45",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "CREMA DI UVETTA SULTANINA E MANDORLA - 150gr",
+                "code": "CRMANUVT150",
+                "id_category": "%(id_categ_creme)s",
+                "code_forn": "CRMANUVT150",
+                "description": "CREMA DI UVETTA SULTANINA E MANDORLA - 150gr",
+                "short_description": "CREMA DI UVETTA SULTANINA E MANDORLA - 150gr",
+                "cost": 5.77,
+                "price_net": 5.77,
+                "price_vat": "6.35",
+                "vat": "10",
+                "curr_price_net": 4.95,
+                "curr_price_vat": "5.45",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "CREMA MANDORLA PELATA - 7kg",
+                "code": "CRMP7KG",
+                "id_category": "%(id_categ_creme)s",
+                "code_forn": "CRMP7KG",
+                "description": "CREMA MANDORLA PELATA - 7kg",
+                "short_description": "CREMA MANDORLA PELATA - 7kg",
+                "cost": 231.09,
+                "price_net": 231.09,
+                "price_vat": "254.20",
+                "vat": "10",
+                "curr_price_net": 198.27,
+                "curr_price_vat": "218.10",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MIX MANDORLE E UVETTA SULTANINA - 200gr",
+                "code": "MIXUVASULT",
+                "id_category": "%(id_categ_mix_mandorla)s",
+                "code_forn": "MIXUVASULT",
+                "description": "MIX MANDORLE E UVETTA SULTANINA - 200gr",
+                "short_description": "MIX MANDORLE E UVETTA SULTANINA - 200gr",
+                "cost": 4.13,
+                "price_net": 4.13,
+                "price_vat": "4.54",
+                "vat": "10",
+                "curr_price_net": 3.54,
+                "curr_price_vat": "3.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MIX MANDORLE E MIRTILLO ROSSO - 200gr",
+                "code": "MIXMIRTILLO",
+                "id_category": "%(id_categ_mix_mandorla)s",
+                "code_forn": "MIXMIRTILLO",
+                "description": "MIX MANDORLE E MIRTILLO ROSSO - 200gr",
+                "short_description": "MIX MANDORLE E MIRTILLO ROSSO - 200gr",
+                "cost": 6.6,
+                "price_net": 6.6,
+                "price_vat": "7.26",
+                "vat": "10",
+                "curr_price_net": 5.66,
+                "curr_price_vat": "6.23",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MIX FITNESS (MANDORLA SGUSCIATA-NOCCIOLA SGUSCIATA-ANACARDI-MIRTILLO ROSSO-UVETTA SULTANINA-SEMI DI ZUCCA) - 200gr",
+                "code": "MIXFITNESS",
+                "id_category": "%(id_categ_mix_mandorla)s",
+                "code_forn": "MIXFITNESS",
+                "description": "MIX FITNESS (MANDORLA SGUSCIATA-NOCCIOLA SGUSCIATA-ANACARDI-MIRTILLO ROSSO-UVETTA SULTANINA-SEMI DI ZUCCA) - 200gr",
+                "short_description": "MIX FITNESS (MANDORLA SGUSCIATA-NOCCIOLA SGUSCIATA-ANACARDI-MIRTILLO ROSSO-UVETTA SULTANINA-SEMI DI ZUCCA) - 200gr",
+                "cost": 4.95,
+                "price_net": 4.95,
+                "price_vat": "5.45",
+                "vat": "10",
+                "curr_price_net": 4.25,
+                "curr_price_vat": "4.67",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "NOCCIOLE SGUSCIATE - 200gr",
+                "code": "NOCCIOLE200",
+                "id_category": "%(id_categ_mix_mandorla)s",
+                "code_forn": "NOCCIOLE200",
+                "description": "NOCCIOLE SGUSCIATE - 200gr",
+                "short_description": "NOCCIOLE SGUSCIATE - 200gr",
+                "cost": 5.54,
+                "price_net": 5.54,
+                "price_vat": "5.76",
+                "vat": "4",
+                "curr_price_net": 4.49,
+                "curr_price_vat": "4.67",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "ANACARDI CRUDI - 200gr",
+                "code": "ANACARDIBIO200",
+                "id_category": "%(id_categ_mix_mandorla)s",
+                "code_forn": "ANACARDIBIO200",
+                "description": "ANACARDI CRUDI - 200gr",
+                "short_description": "ANACARDI CRUDI - 200gr",
+                "cost": 6.46,
+                "price_net": 6.46,
+                "price_vat": "6.72",
+                "vat": "4",
+                "curr_price_net": 5.24,
+                "curr_price_vat": "5.45",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "UVETTA SULTANINA ESSICCATA - 200gr",
+                "code": "UVETTABIO200",
+                "id_category": "%(id_categ_mix_mandorla)s",
+                "code_forn": "UVETTABIO200",
+                "description": "UVETTA SULTANINA ESSICCATA - 200gr",
+                "short_description": "UVETTA SULTANINA ESSICCATA - 200gr",
+                "cost": 2.77,
+                "price_net": 2.77,
+                "price_vat": "2.88",
+                "vat": "4",
+                "curr_price_net": 2.24,
+                "curr_price_vat": "2.33",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "SEMI DI GIRASOLE DECORTICATI - 200gr",
+                "code": "SEMGIRASOL200",
+                "id_category": "%(id_categ_semi)s",
+                "code_forn": "SEMGIRASOL200",
+                "description": "SEMI DI GIRASOLE DECORTICATI - 200gr",
+                "short_description": "SEMI DI GIRASOLE DECORTICATI - 200gr",
+                "cost": 1.65,
+                "price_net": 1.65,
+                "price_vat": "1.81",
+                "vat": "10",
+                "curr_price_net": 1.41,
+                "curr_price_vat": "1.55",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "SEMI DI ZUCCA - 200gr",
+                "code": "SEMZUCC200",
+                "id_category": "%(id_categ_semi)s",
+                "code_forn": "SEMZUCC200",
+                "description": "SEMI DI ZUCCA - 200gr",
+                "short_description": "SEMI DI ZUCCA - 200gr",
+                "cost": 3.3,
+                "price_net": 3.3,
+                "price_vat": "3.63",
+                "vat": "10",
+                "curr_price_net": 2.83,
+                "curr_price_vat": "3.11",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "SEMI DI LINO SCURO - 200gr",
+                "code": "SEMLINO200",
+                "id_category": "%(id_categ_semi)s",
+                "code_forn": "SEMLINO200",
+                "description": "SEMI DI LINO SCURO - 200gr",
+                "short_description": "SEMI DI LINO SCURO - 200gr",
+                "cost": 1.65,
+                "price_net": 1.65,
+                "price_vat": "1.81",
+                "vat": "10",
+                "curr_price_net": 1.41,
+                "curr_price_vat": "1.55",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "SEMI DI CHIA - 200gr",
+                "code": "SEMCHIA200",
+                "id_category": "%(id_categ_semi)s",
+                "code_forn": "SEMCHIA200",
+                "description": "SEMI DI CHIA - 200gr",
+                "short_description": "SEMI DI CHIA - 200gr",
+                "cost": 3.3,
+                "price_net": 3.3,
+                "price_vat": "3.63",
+                "vat": "10",
+                "curr_price_net": 2.83,
+                "curr_price_vat": "3.11",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "SEMI DI SESAMO - 200gr",
+                "code": "SEMSESA200",
+                "id_category": "%(id_categ_semi)s",
+                "code_forn": "SEMSESA200",
+                "description": "SEMI DI SESAMO - 200gr",
+                "short_description": "SEMI DI SESAMO - 200gr",
+                "cost": 1.65,
+                "price_net": 1.65,
+                "price_vat": "1.81",
+                "vat": "10",
+                "curr_price_net": 1.41,
+                "curr_price_vat": "1.55",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "SEMI DI PAPAVERO - 200gr",
+                "code": "SEMPAP200",
+                "id_category": "%(id_categ_semi)s",
+                "code_forn": "SEMPAP200",
+                "description": "SEMI DI PAPAVERO - 200gr",
+                "short_description": "SEMI DI PAPAVERO - 200gr",
+                "cost": 3.3,
+                "price_net": 3.3,
+                "price_vat": "3.63",
+                "vat": "10",
+                "curr_price_net": 2.83,
+                "curr_price_vat": "3.11",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "TRE SEMI MIX (GIRASOLE - LINO - MANDORLA SGUSCIATA) - 200gr",
+                "code": "TRESEMI200",
+                "id_category": "%(id_categ_semi)s",
+                "code_forn": "TRESEMI200",
+                "description": "TRE SEMI MIX (GIRASOLE - LINO - MANDORLA SGUSCIATA) - 200gr",
+                "short_description": "TRE SEMI MIX (GIRASOLE - LINO - MANDORLA SGUSCIATA) - 200gr",
+                "cost": 4.13,
+                "price_net": 4.13,
+                "price_vat": "4.54",
+                "vat": "10",
+                "curr_price_net": 3.54,
+                "curr_price_vat": "3.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "CECE BIANCO - 500gr",
+                "code": "CECEBIANCO500",
+                "id_category": "%(id_categ_legumi)s",
+                "code_forn": "CECEBIANCO500",
+                "description": "CECE BIANCO - 500gr",
+                "short_description": "CECE BIANCO - 500gr",
+                "cost": 3.25,
+                "price_net": 3.25,
+                "price_vat": "3.38",
+                "vat": "4",
+                "curr_price_net": 2.63,
+                "curr_price_vat": "2.74",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "CECE NERO - 500gr",
+                "code": "CECENERO500",
+                "id_category": "%(id_categ_legumi)s",
+                "code_forn": "CECENERO500",
+                "description": "CECE NERO - 500gr",
+                "short_description": "CECE NERO - 500gr",
+                "cost": 3.25,
+                "price_net": 3.25,
+                "price_vat": "3.38",
+                "vat": "4",
+                "curr_price_net": 2.63,
+                "curr_price_vat": "2.74",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "CICERCHIA - 500gr",
+                "code": "CICERCHIA500",
+                "id_category": "%(id_categ_legumi)s",
+                "code_forn": "CICERCHIA500",
+                "description": "CICERCHIA - 500gr",
+                "short_description": "CICERCHIA - 500gr",
+                "cost": 3.25,
+                "price_net": 3.25,
+                "price_vat": "3.38",
+                "vat": "4",
+                "curr_price_net": 2.63,
+                "curr_price_vat": "2.74",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "LENTICCHIA PICCOLA - 500gr",
+                "code": "LENTICCHIAP500",
+                "id_category": "%(id_categ_legumi)s",
+                "code_forn": "LENTICCHIAP500",
+                "description": "LENTICCHIA PICCOLA - 500gr",
+                "short_description": "LENTICCHIA PICCOLA - 500gr",
+                "cost": 3.25,
+                "price_net": 3.25,
+                "price_vat": "3.38",
+                "vat": "4",
+                "curr_price_net": 2.63,
+                "curr_price_vat": "2.74",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MALLO DI MANDORLA - VERDE - 500gr",
+                "code": "MALLOBIO500",
+                "id_category": "%(id_categ_pasta_farina_mandorla)s",
+                "code_forn": "MALLOBIO500",
+                "description": "MALLO DI MANDORLA - VERDE - 500gr",
+                "short_description": "MALLO DI MANDORLA - VERDE - 500gr",
+                "cost": 4.62,
+                "price_net": 4.62,
+                "price_vat": "4.80",
+                "vat": "4",
+                "curr_price_net": 3.74,
+                "curr_price_vat": "3.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "FOGLIE DI MANDORLO - VERDE - 500gr",
+                "code": "FOGMANBIO500",
+                "id_category": "%(id_categ_pasta_farina_mandorla)s",
+                "code_forn": "FOGMANBIO500",
+                "description": "FOGLIE DI MANDORLO - VERDE - 500gr",
+                "short_description": "FOGLIE DI MANDORLO - VERDE - 500gr",
+                "cost": 4.62,
+                "price_net": 4.62,
+                "price_vat": "4.80",
+                "vat": "4",
+                "curr_price_net": 3.74,
+                "curr_price_vat": "3.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "CAVATELLI - 500gr",
+                "code": "CAVMANBIO500",
+                "id_category": "%(id_categ_pasta_farina_mandorla)s",
+                "code_forn": "CAVMANBIO500",
+                "description": "CAVATELLI - 500gr",
+                "short_description": "CAVATELLI - 500gr",
+                "cost": 4.62,
+                "price_net": 4.62,
+                "price_vat": "4.80",
+                "vat": "4",
+                "curr_price_net": 3.74,
+                "curr_price_vat": "3.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "LAGANINE  - 400gr",
+                "code": "LAGABIO400",
+                "id_category": "%(id_categ_pasta_farina_mandorla)s",
+                "code_forn": "LAGABIO400",
+                "description": "LAGANINE  - 400gr",
+                "short_description": "LAGANINE  - 400gr",
+                "cost": 4.62,
+                "price_net": 4.62,
+                "price_vat": "4.80",
+                "vat": "4",
+                "curr_price_net": 3.74,
+                "curr_price_vat": "3.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "FRISCIDD - 500gr",
+                "code": "MACFERBIO500",
+                "id_category": "%(id_categ_pasta_farina_mandorla)s",
+                "code_forn": "MACFERBIO500",
+                "description": "FRISCIDD - 500gr",
+                "short_description": "FRISCIDD - 500gr",
+                "cost": 4.62,
+                "price_net": 4.62,
+                "price_vat": "4.80",
+                "vat": "4",
+                "curr_price_net": 3.74,
+                "curr_price_vat": "3.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "OLIO DI MANDORLA 100 PURO - 100ml",
+                "code": "OLIOMANDORLA100",
+                "id_category": "%(id_categ_olio_mandorla)s",
+                "code_forn": "OLIOMANDORLA100",
+                "description": "OLIO DI MANDORLA 100 PURO - 100ml",
+                "short_description": "OLIO DI MANDORLA 100 PURO - 100ml",
+                "cost": 8.25,
+                "price_net": 8.25,
+                "price_vat": "9.08",
+                "vat": "10",
+                "curr_price_net": 7.08,
+                "curr_price_vat": "7.79",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "OLIO DI MANDORLA 100 PURO - 1lt",
+                "code": "OLIOMANDORLA",
+                "id_category": "%(id_categ_olio_mandorla)s",
+                "code_forn": "OLIOMANDORLA",
+                "description": "OLIO DI MANDORLA 100 PURO - 1lt",
+                "short_description": "OLIO DI MANDORLA 100 PURO - 1lt",
+                "cost": 24.78,
+                "price_net": 24.78,
+                "price_vat": "27.26",
+                "vat": "10",
+                "curr_price_net": 21.26,
+                "curr_price_vat": "23.39",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDOLAT SOLUBILE integrale 100  (da mandorla sgusciata) - 1kg",
+                "code": "LSINT1KG",
+                "id_category": "%(id_categ_mandolat)s",
+                "code_forn": "LSINT1KG",
+                "description": "MANDOLAT SOLUBILE integrale 100  (da mandorla sgusciata) - 1kg",
+                "short_description": "MANDOLAT SOLUBILE integrale 100  (da mandorla sgusciata) - 1kg",
+                "cost": 23.14,
+                "price_net": 23.14,
+                "price_vat": "25.45",
+                "vat": "10",
+                "curr_price_net": 19.85,
+                "curr_price_vat": "21.83",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDOLAT SOLUBILE integrale 100  (da mandorla sgusciata) - 400gr",
+                "code": "LSINT400",
+                "id_category": "%(id_categ_mandolat)s",
+                "code_forn": "LSINT400",
+                "description": "MANDOLAT SOLUBILE integrale 100  (da mandorla sgusciata) - 400gr",
+                "short_description": "MANDOLAT SOLUBILE integrale 100  (da mandorla sgusciata) - 400gr",
+                "cost": 14.05,
+                "price_net": 14.05,
+                "price_vat": "15.45",
+                "vat": "10",
+                "curr_price_net": 12.05,
+                "curr_price_vat": "13.25",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDOLAT SOLUBILE integrale 100  (da mandorla sgusciata) - 80gr",
+                "code": "LSINT80",
+                "id_category": "%(id_categ_mandolat)s",
+                "code_forn": "LSINT80",
+                "description": "MANDOLAT SOLUBILE integrale 100  (da mandorla sgusciata) - 80gr",
+                "short_description": "MANDOLAT SOLUBILE integrale 100  (da mandorla sgusciata) - 80gr",
+                "cost": 3.71,
+                "price_net": 3.71,
+                "price_vat": "4.08",
+                "vat": "10",
+                "curr_price_net": 3.18,
+                "curr_price_vat": "3.50",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDOLAT SOLUBILE 100  (da mandorla pelata) - 1kg",
+                "code": "LS1KG",
+                "id_category": "%(id_categ_mandolat)s",
+                "code_forn": "LS1KG",
+                "description": "MANDOLAT SOLUBILE 100  (da mandorla pelata) - 1kg",
+                "short_description": "MANDOLAT SOLUBILE 100  (da mandorla pelata) - 1kg",
+                "cost": 23.14,
+                "price_net": 23.14,
+                "price_vat": "25.45",
+                "vat": "10",
+                "curr_price_net": 19.85,
+                "curr_price_vat": "21.83",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDOLAT SOLUBILE 100  (da mandorla pelata) - 400gr",
+                "code": "LS400",
+                "id_category": "%(id_categ_mandolat)s",
+                "code_forn": "LS400",
+                "description": "MANDOLAT SOLUBILE 100  (da mandorla pelata) - 400gr",
+                "short_description": "MANDOLAT SOLUBILE 100  (da mandorla pelata) - 400gr",
+                "cost": 14.05,
+                "price_net": 14.05,
+                "price_vat": "15.45",
+                "vat": "10",
+                "curr_price_net": 12.05,
+                "curr_price_vat": "13.25",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDOLAT SOLUBILE 100  (da mandorla pelata) - 80gr",
+                "code": "LS80",
+                "id_category": "%(id_categ_mandolat)s",
+                "code_forn": "LS80",
+                "description": "MANDOLAT SOLUBILE 100  (da mandorla pelata) - 80gr",
+                "short_description": "MANDOLAT SOLUBILE 100  (da mandorla pelata) - 80gr",
+                "cost": 3.71,
+                "price_net": 3.71,
+                "price_vat": "4.08",
+                "vat": "10",
+                "curr_price_net": 3.18,
+                "curr_price_vat": "3.50",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORELLA NATURALE - 180gr",
+                "code": "MANDNAT180GR",
+                "id_category": "%(id_categ_mandorella)s",
+                "code_forn": "MANDNAT180GR",
+                "description": "MANDORELLA NATURALE - 180gr",
+                "short_description": "MANDORELLA NATURALE - 180gr",
+                "cost": 3.59,
+                "price_net": 3.59,
+                "price_vat": "3.95",
+                "vat": "10",
+                "curr_price_net": 3.08,
+                "curr_price_vat": "3.39",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORELLA GOURMET OLIVE E CARCIOFI - 180gr",
+                "code": "MGOURMETOC",
+                "id_category": "%(id_categ_mandorella)s",
+                "code_forn": "MGOURMETOC",
+                "description": "MANDORELLA GOURMET OLIVE E CARCIOFI - 180gr",
+                "short_description": "MANDORELLA GOURMET OLIVE E CARCIOFI - 180gr",
+                "cost": 3.59,
+                "price_net": 3.59,
+                "price_vat": "3.95",
+                "vat": "10",
+                "curr_price_net": 3.08,
+                "curr_price_vat": "3.39",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORELLA GOURMET TARTUFO - 150gr",
+                "code": "MGOUMERTTR",
+                "id_category": "%(id_categ_mandorella)s",
+                "code_forn": "MGOUMERTTR",
+                "description": "MANDORELLA GOURMET TARTUFO - 150gr",
+                "short_description": "MANDORELLA GOURMET TARTUFO - 150gr",
+                "cost": 4.42,
+                "price_net": 4.42,
+                "price_vat": "4.86",
+                "vat": "10",
+                "curr_price_net": 3.79,
+                "curr_price_vat": "4.17",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "SPALMABILE NATURALE - 180gr",
+                "code": "SPLMNATUR180",
+                "id_category": "%(id_categ_mandorella)s",
+                "code_forn": "SPLMNATUR180",
+                "description": "SPALMABILE NATURALE - 180gr",
+                "short_description": "SPALMABILE NATURALE - 180gr",
+                "cost": 3.59,
+                "price_net": 3.59,
+                "price_vat": "3.95",
+                "vat": "10",
+                "curr_price_net": 3.08,
+                "curr_price_vat": "3.39",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "SPALMABILE ERBA CIPOLLINA - 180gr",
+                "code": "SPLMERBAC180",
+                "id_category": "%(id_categ_mandorella)s",
+                "code_forn": "SPLMERBAC180",
+                "description": "SPALMABILE ERBA CIPOLLINA - 180gr",
+                "short_description": "SPALMABILE ERBA CIPOLLINA - 180gr",
+                "cost": 3.59,
+                "price_net": 3.59,
+                "price_vat": "3.95",
+                "vat": "10",
+                "curr_price_net": 3.08,
+                "curr_price_vat": "3.39",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "SPALMABILE BASILICO - 180gr",
+                "code": "SPLMBASI180",
+                "id_category": "%(id_categ_mandorella)s",
+                "code_forn": "SPLMBASI180",
+                "description": "SPALMABILE BASILICO - 180gr",
+                "short_description": "SPALMABILE BASILICO - 180gr",
+                "cost": 3.59,
+                "price_net": 3.59,
+                "price_vat": "3.95",
+                "vat": "10",
+                "curr_price_net": 3.08,
+                "curr_price_vat": "3.39",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "SPALMABILE POMODORO - 180gr",
+                "code": "SPLM180POM2",
+                "id_category": "%(id_categ_mandorella)s",
+                "code_forn": "SPLM180POM2",
+                "description": "SPALMABILE POMODORO - 180gr",
+                "short_description": "SPALMABILE POMODORO - 180gr",
+                "cost": 3.59,
+                "price_net": 3.59,
+                "price_vat": "3.95",
+                "vat": "10",
+                "curr_price_net": 3.08,
+                "curr_price_vat": "3.39",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDONESE - 180gr",
+                "code": "MANDONESEPET",
+                "id_category": "%(id_categ_mandorella)s",
+                "code_forn": "MANDONESEPET",
+                "description": "MANDONESE - 180gr",
+                "short_description": "MANDONESE - 180gr",
+                "cost": 3.59,
+                "price_net": 3.59,
+                "price_vat": "3.95",
+                "vat": "10",
+                "curr_price_net": 3.08,
+                "curr_price_vat": "3.39",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDONESE ALLA CURCUMA - 180gr",
+                "code": "MANDONESECR",
+                "id_category": "%(id_categ_mandorella)s",
+                "code_forn": "MANDONESECR",
+                "description": "MANDONESE ALLA CURCUMA - 180gr",
+                "short_description": "MANDONESE ALLA CURCUMA - 180gr",
+                "cost": 3.59,
+                "price_net": 3.59,
+                "price_vat": "3.95",
+                "vat": "10",
+                "curr_price_net": 3.08,
+                "curr_price_vat": "3.39",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORELLA TZATZIKI - 180gr",
+                "code": "MANTZATZIKIPET",
+                "id_category": "%(id_categ_mandorella)s",
+                "code_forn": "MANTZATZIKIPET",
+                "description": "MANDORELLA TZATZIKI - 180gr",
+                "short_description": "MANDORELLA TZATZIKI - 180gr",
+                "cost": 3.59,
+                "price_net": 3.59,
+                "price_vat": "3.95",
+                "vat": "10",
+                "curr_price_net": 3.08,
+                "curr_price_vat": "3.39",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "BURRELLA - 180gr",
+                "code": "BURRELLA180",
+                "id_category": "%(id_categ_burrella)s",
+                "code_forn": "BURRELLA180",
+                "description": "BURRELLA - 180gr",
+                "short_description": "BURRELLA - 180gr",
+                "cost": 3.23,
+                "price_net": 3.23,
+                "price_vat": "3.55",
+                "vat": "10",
+                "curr_price_net": 2.77,
+                "curr_price_vat": "3.05",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "VEG MASCARPONE - 180gr",
+                "code": "MANDAMISU",
+                "id_category": "%(id_categ_mandamisu)s",
+                "code_forn": "MANDAMISU",
+                "description": "VEG MASCARPONE - 180gr",
+                "short_description": "VEG MASCARPONE - 180gr",
+                "cost": 2.85,
+                "price_net": 2.85,
+                "price_vat": "3.14",
+                "vat": "10",
+                "curr_price_net": 2.45,
+                "curr_price_vat": "2.69",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORINO - 1kg",
+                "code": "MANDORINO1KG",
+                "id_category": "%(id_categ_stagionati)s",
+                "code_forn": "MANDORINO1KG",
+                "description": "MANDORINO - 1kg",
+                "short_description": "MANDORINO - 1kg",
+                "cost": 14.86,
+                "price_net": 14.86,
+                "price_vat": "16.35",
+                "vat": "10",
+                "curr_price_net": 12.75,
+                "curr_price_vat": "14.03",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORINO - 500gr",
+                "code": "MANDORINO500",
+                "id_category": "%(id_categ_stagionati)s",
+                "code_forn": "MANDORINO500",
+                "description": "MANDORINO - 500gr",
+                "short_description": "MANDORINO - 500gr",
+                "cost": 8.25,
+                "price_net": 8.25,
+                "price_vat": "9.08",
+                "vat": "10",
+                "curr_price_net": 7.08,
+                "curr_price_vat": "7.79",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORINO - 200gr",
+                "code": "MANDORINO200",
+                "id_category": "%(id_categ_stagionati)s",
+                "code_forn": "MANDORINO200",
+                "description": "MANDORINO - 200gr",
+                "short_description": "MANDORINO - 200gr",
+                "cost": 4.13,
+                "price_net": 4.13,
+                "price_vat": "4.54",
+                "vat": "10",
+                "curr_price_net": 3.54,
+                "curr_price_vat": "3.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORINO GOURMET - 200gr",
+                "code": "MANDORINO200GOU",
+                "id_category": "%(id_categ_stagionati)s",
+                "code_forn": "MANDORINO200GOU",
+                "description": "MANDORINO GOURMET - 200gr",
+                "short_description": "MANDORINO GOURMET - 200gr",
+                "cost": 4.13,
+                "price_net": 4.13,
+                "price_vat": "4.54",
+                "vat": "10",
+                "curr_price_net": 3.54,
+                "curr_price_vat": "3.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORINO MANDORLE E NOCI - 200gr",
+                "code": "MANDORINO200MEN",
+                "id_category": "%(id_categ_stagionati)s",
+                "code_forn": "MANDORINO200MEN",
+                "description": "MANDORINO MANDORLE E NOCI - 200gr",
+                "short_description": "MANDORINO MANDORLE E NOCI - 200gr",
+                "cost": 4.13,
+                "price_net": 4.13,
+                "price_vat": "4.54",
+                "vat": "10",
+                "curr_price_net": 3.54,
+                "curr_price_vat": "3.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORINO MANDORLE E PISTACCHIO - 200gr",
+                "code": "MANDORINO200PEM",
+                "id_category": "%(id_categ_stagionati)s",
+                "code_forn": "MANDORINO200PEM",
+                "description": "MANDORINO MANDORLE E PISTACCHIO - 200gr",
+                "short_description": "MANDORINO MANDORLE E PISTACCHIO - 200gr",
+                "cost": 4.13,
+                "price_net": 4.13,
+                "price_vat": "4.54",
+                "vat": "10",
+                "curr_price_net": 3.54,
+                "curr_price_vat": "3.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORINO TARTUFO - 200gr",
+                "code": "MANDORINO200TAR",
+                "id_category": "%(id_categ_stagionati)s",
+                "code_forn": "MANDORINO200TAR",
+                "description": "MANDORINO TARTUFO - 200gr",
+                "short_description": "MANDORINO TARTUFO - 200gr",
+                "cost": 5.04,
+                "price_net": 5.04,
+                "price_vat": "5.54",
+                "vat": "10",
+                "curr_price_net": 4.32,
+                "curr_price_vat": "4.75",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MANDORINO CURCUMA E PEPE - 200gr",
+                "code": "MANDORINO200CEP",
+                "id_category": "%(id_categ_stagionati)s",
+                "code_forn": "MANDORINO200CEP",
+                "description": "MANDORINO CURCUMA E PEPE - 200gr",
+                "short_description": "MANDORINO CURCUMA E PEPE - 200gr",
+                "cost": 4.13,
+                "price_net": 4.13,
+                "price_vat": "4.54",
+                "vat": "10",
+                "curr_price_net": 3.54,
+                "curr_price_vat": "3.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "GRAN MURGIANO - 1kg",
+                "code": "GRANMURGIANO1KG",
+                "id_category": "%(id_categ_stagionati)s",
+                "code_forn": "GRANMURGIANO1KG",
+                "description": "GRAN MURGIANO - 1kg",
+                "short_description": "GRAN MURGIANO - 1kg",
+                "cost": 14.86,
+                "price_net": 14.86,
+                "price_vat": "16.35",
+                "vat": "10",
+                "curr_price_net": 12.75,
+                "curr_price_vat": "14.03",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "GRAN MURGIANO - 500gr",
+                "code": "GRANMURGIANO500",
+                "id_category": "%(id_categ_stagionati)s",
+                "code_forn": "GRANMURGIANO500",
+                "description": "GRAN MURGIANO - 500gr",
+                "short_description": "GRAN MURGIANO - 500gr",
+                "cost": 8.25,
+                "price_net": 8.25,
+                "price_vat": "9.08",
+                "vat": "10",
+                "curr_price_net": 7.08,
+                "curr_price_vat": "7.79",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "GRAN MURGIANO - 200gr",
+                "code": "GRANMURGIANO200",
+                "id_category": "%(id_categ_stagionati)s",
+                "code_forn": "GRANMURGIANO200",
+                "description": "GRAN MURGIANO - 200gr",
+                "short_description": "GRAN MURGIANO - 200gr",
+                "cost": 4.13,
+                "price_net": 4.13,
+                "price_vat": "4.54",
+                "vat": "10",
+                "curr_price_net": 3.54,
+                "curr_price_vat": "3.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MACIOTTA NATURALE - 200gr",
+                "code": "MACIOTTA200",
+                "id_category": "%(id_categ_stagionati)s",
+                "code_forn": "MACIOTTA200",
+                "description": "MACIOTTA NATURALE - 200gr",
+                "short_description": "MACIOTTA NATURALE - 200gr",
+                "cost": 4.13,
+                "price_net": 4.13,
+                "price_vat": "4.54",
+                "vat": "10",
+                "curr_price_net": 3.54,
+                "curr_price_vat": "3.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MACIOTTA MEDITERRANEA - 200gr",
+                "code": "MACIOTTA200MED",
+                "id_category": "%(id_categ_stagionati)s",
+                "code_forn": "MACIOTTA200MED",
+                "description": "MACIOTTA MEDITERRANEA - 200gr",
+                "short_description": "MACIOTTA MEDITERRANEA - 200gr",
+                "cost": 4.13,
+                "price_net": 4.13,
+                "price_vat": "4.54",
+                "vat": "10",
+                "curr_price_net": 3.54,
+                "curr_price_vat": "3.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MACIOTTA MANDORLE E NOCI - 200gr",
+                "code": "MACIOTTA200MEN",
+                "id_category": "%(id_categ_stagionati)s",
+                "code_forn": "MACIOTTA200MEN",
+                "description": "MACIOTTA MANDORLE E NOCI - 200gr",
+                "short_description": "MACIOTTA MANDORLE E NOCI - 200gr",
+                "cost": 4.13,
+                "price_net": 4.13,
+                "price_vat": "4.54",
+                "vat": "10",
+                "curr_price_net": 3.54,
+                "curr_price_vat": "3.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MACIOTTA PICCANTE - 200gr",
+                "code": "MACIOTTA200PICC",
+                "id_category": "%(id_categ_stagionati)s",
+                "code_forn": "MACIOTTA200PICC",
+                "description": "MACIOTTA PICCANTE - 200gr",
+                "short_description": "MACIOTTA PICCANTE - 200gr",
+                "cost": 4.13,
+                "price_net": 4.13,
+                "price_vat": "4.54",
+                "vat": "10",
+                "curr_price_net": 3.54,
+                "curr_price_vat": "3.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MACIOTTA TARTUFO - 200gr",
+                "code": "MACIOTTA200TAR",
+                "id_category": "%(id_categ_stagionati)s",
+                "code_forn": "MACIOTTA200TAR",
+                "description": "MACIOTTA TARTUFO - 200gr",
+                "short_description": "MACIOTTA TARTUFO - 200gr",
+                "cost": 4.95,
+                "price_net": 4.95,
+                "price_vat": "5.45",
+                "vat": "10",
+                "curr_price_net": 4.25,
+                "curr_price_vat": "4.67",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "MACIOTTA MANDORLE E PISTACCHIO - 200gr",
+                "code": "MACIOTTA200PEM",
+                "id_category": "%(id_categ_stagionati)s",
+                "code_forn": "MACIOTTA200PEM",
+                "description": "MACIOTTA MANDORLE E PISTACCHIO - 200gr",
+                "short_description": "MACIOTTA MANDORLE E PISTACCHIO - 200gr",
+                "cost": 4.13,
+                "price_net": 4.13,
+                "price_vat": "4.54",
+                "vat": "10",
+                "curr_price_net": 3.54,
+                "curr_price_vat": "3.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "Pancake Proteico-400G",
+                "code": "PANCAKE400",
+                "id_category": "%(id_categ_colazione)s",
+                "code_forn": "PANCAKE400",
+                "description": "Pancake Proteico-400G",
+                "short_description": "Pancake Proteico-400G",
+                "cost": 6.91,
+                "price_net": 6.91,
+                "price_vat": "7.60",
+                "vat": "10",
+                "curr_price_net": 5.93,
+                "curr_price_vat": "6.52",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "Pancake Proteico Cacao Fondente-400G",
+                "code": "PANCIOCC400",
+                "id_category": "%(id_categ_colazione)s",
+                "code_forn": "PANCIOCC400",
+                "description": "Pancake Proteico Cacao Fondente-400G",
+                "short_description": "Pancake Proteico Cacao Fondente-400G",
+                "cost": 6.91,
+                "price_net": 6.91,
+                "price_vat": "7.60",
+                "vat": "10",
+                "curr_price_net": 5.93,
+                "curr_price_vat": "6.52",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "Porridge Proteici Mela e Cannella-400G",
+                "code": "PORMEC400",
+                "id_category": "%(id_categ_colazione)s",
+                "code_forn": "PORMEC400",
+                "description": "Porridge Proteici Mela e Cannella-400G",
+                "short_description": "Porridge Proteici Mela e Cannella-400G",
+                "cost": 8.36,
+                "price_net": 8.36,
+                "price_vat": "9.20",
+                "vat": "10",
+                "curr_price_net": 7.17,
+                "curr_price_vat": "7.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "Porridge Proteici Cocco e Banana-400G",
+                "code": "PORCEB400",
+                "id_category": "%(id_categ_colazione)s",
+                "code_forn": "PORCEB400",
+                "description": "Porridge Proteici Cocco e Banana-400G",
+                "short_description": "Porridge Proteici Cocco e Banana-400G",
+                "cost": 8.36,
+                "price_net": 8.36,
+                "price_vat": "9.20",
+                "vat": "10",
+                "curr_price_net": 7.17,
+                "curr_price_vat": "7.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "Porridge Proteici Cacao Fondente-400G",
+                "code": "PORCAC400",
+                "id_category": "%(id_categ_colazione)s",
+                "code_forn": "PORCAC400",
+                "description": "Porridge Proteici Cacao Fondente-400G",
+                "short_description": "Porridge Proteici Cacao Fondente-400G",
+                "cost": 8.36,
+                "price_net": 8.36,
+                "price_vat": "9.20",
+                "vat": "10",
+                "curr_price_net": 7.17,
+                "curr_price_vat": "7.89",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "Cioccolata Proteica-400G",
+                "code": "CIOCLASS400",
+                "id_category": "%(id_categ_colazione)s",
+                "code_forn": "CIOCLASS400",
+                "description": "Cioccolata Proteica-400G",
+                "short_description": "Cioccolata Proteica-400G",
+                "cost": 14.09,
+                "price_net": 14.09,
+                "price_vat": "15.50",
+                "vat": "10",
+                "curr_price_net": 12.09,
+                "curr_price_vat": "13.30",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "Cioccolata Cocco Proteica-400G",
+                "code": "CIOCOCCO400",
+                "id_category": "%(id_categ_colazione)s",
+                "code_forn": "CIOCOCCO400",
+                "description": "Cioccolata Cocco Proteica-400G",
+                "short_description": "Cioccolata Cocco Proteica-400G",
+                "cost": 14.09,
+                "price_net": 14.09,
+                "price_vat": "15.50",
+                "vat": "10",
+                "curr_price_net": 12.09,
+                "curr_price_vat": "13.30",
+                "visible": true
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/product/admin/add",
+            "params": {
+                "name": "Cioccolata Fondente Proteica-400G",
+                "code": "CIOFOND400",
+                "id_category": "%(id_categ_colazione)s",
+                "code_forn": "CIOFOND400",
+                "description": "Cioccolata Fondente Proteica-400G",
+                "short_description": "Cioccolata Fondente Proteica-400G",
+                "cost": 14.09,
+                "price_net": 14.09,
+                "price_vat": "15.50",
+                "vat": "10",
+                "curr_price_net": 12.09,
+                "curr_price_vat": "13.30",
+                "visible": true
+            }
+        }
+    ]
+}
