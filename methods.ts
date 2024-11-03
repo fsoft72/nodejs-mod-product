@@ -22,7 +22,7 @@ const _ = ( txt: string, vals: any = null, plural = false ) => {
 const COLL_PRODUCTS = "products";
 
 /*=== f2c_start __file_header === */
-import { keys_filter, keys_valid, mkid, set_attr } from '../../liwe/utils';
+import { keys_filter, keys_valid, mkid, set_attr, toNumDecimal } from '../../liwe/utils';
 import { system_domain_get_by_session } from '../system/methods';
 import { tag_obj } from '../tag/methods';
 import { adb_query_one, adb_record_add, adb_find_all, adb_find_one, adb_prepare_filters, adb_del_one, adb_collection_init } from '../../liwe/db/arango';
@@ -74,6 +74,21 @@ const _product_save = ( req: ILRequest, err: ILError, params: Product, return_em
 		}
 
 		prod = { ...prod, ...keys_valid( params ) };
+
+		console.log( "=== PROD: ", prod );
+
+		// ensure quant is an integer
+		prod.quant = parseInt( ( prod.quant ?? '0' ).toString(), 10 );
+		prod.vat = parseInt( ( prod.vat ?? '0' ).toString(), 10 );
+
+
+		// ensure price_net, price_vat, curr_price_net, curr_price_vat are float with 2 decimals
+		prod.price_net = toNumDecimal( prod.price_net, 2 );
+		prod.price_vat = toNumDecimal( prod.price_vat, 2 );
+		prod.curr_price_net = toNumDecimal( prod.curr_price_net, 2 );
+		prod.curr_price_vat = toNumDecimal( prod.curr_price_vat, 2 );
+		prod.cost = toNumDecimal( prod.cost, 2 );
+
 
 		prod = await adb_record_add( req.db, COLL_PRODUCTS, prod, ProductKeys );
 
@@ -369,7 +384,21 @@ export const get_product_list = ( req: ILRequest, id_category?: string, skip: nu
 	return new Promise( async ( resolve, reject ) => {
 		/*=== f2c_start get_product_list ===*/
 		const domain = await system_domain_get_by_session( req );
-		const res: Product[] = await adb_find_all( req.db, COLL_PRODUCTS, { id_category, visible: true, domain: domain.code }, ProductKeys, { rows, skip } );
+		let res: Product[] = await adb_find_all( req.db, COLL_PRODUCTS, { id_category, visible: true, domain: domain.code }, ProductKeys, { rows, skip } );
+
+		// keep only products with quant > 0
+		res = res.filter( ( p ) => parseInt( p.quant.toString(), 10 ) > 0 );
+
+		// keep only products with code != ''
+		res = res.filter( ( p ) => {
+			if ( p.code && p.code.trim() !== '' ) return true;
+
+			return false;
+		} );
+
+		// sort by name
+		res.sort( ( a, b ) => a.name.localeCompare( b.name ) );
+
 		return cback ? cback( null, res ) : resolve( res );
 		/*=== f2c_end get_product_list ===*/
 	} );
