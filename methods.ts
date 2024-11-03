@@ -260,9 +260,9 @@ export const patch_product_admin_fields = ( req: ILRequest, id: string, data: an
  * This function returns a list of full `Product` structure.
  * This function supports pagination.
  *
- * @param id_category -	[opt]
- * @param skip -	[opt]
- * @param rows -	[opt]
+ * @param id_category -  [opt]
+ * @param skip -  [opt]
+ * @param rows -  [opt]
  *
  * @return products: Product
  *
@@ -324,7 +324,7 @@ export const get_product_admin_tag = ( req: ILRequest, id: string, tags: string[
 /**
  *
  * Returns all product details only if the product is `visible`.
- * The product can be identified by	`id`, `code` or `code_forn`.
+ * The product can be identified by  `id`, `code` or `code_forn`.
  * You can pass more than a field, but one is enough.
  * This function returns the full `Product` structure
  *
@@ -402,15 +402,15 @@ export const get_product_admin_details = ( req: ILRequest, id: string, cback: LC
 };
 // }}}
 
-// {{{ post_product_admin_import_csv ( req: ILRequest, file?: File, cback: LCBack = null ): Promise<number>
+// {{{ post_product_admin_import_csv ( req: ILRequest, file: File, cback: LCBack = null ): Promise<number>
 /**
  *
- * @param file - CSV File to read [opt]
+ * @param file - CSV File to read [req]
  *
  * @return products: number
  *
  */
-export const post_product_admin_import_csv = ( req: ILRequest, file?: File, cback: LCback = null ): Promise<number> => {
+export const post_product_admin_import_csv = ( req: ILRequest, file: File, cback: LCback = null ): Promise<number> => {
 	return new Promise( async ( resolve, reject ) => {
 		/*=== f2c_start post_product_admin_import_csv ===*/
 		let err: ILError = {
@@ -579,6 +579,48 @@ export const product_create = ( req: ILRequest, name: string, code?: string, id_
 };
 // }}}
 
+// {{{ product_stock_add ( req?: any, prod_code: string, quant: number, cback: LCBack = null ): Promise<Product>
+/**
+ *
+ * Use this function to add / remove product elements from the stock.
+ * - If you specify a positive number, product stock will **increase**
+ * - If you specify a negative number, product stock will **decrese**
+ * product stock will **never** go below zero
+ *
+ * @param req - IL Request [opt]
+ * @param prod_code - The product id [req]
+ * @param quant - The amount to add / subtract [req]
+ *
+ * @return : Product
+ *
+ */
+export const product_stock_add = ( req: any, prod_code: string, quant: number, cback: LCback = null ): Promise<Product> => {
+	return new Promise( async ( resolve, reject ) => {
+		/*=== f2c_start product_stock_add ===*/
+		const prod = await product_get( req, null, prod_code );
+
+		if ( !prod ) {
+			const err = { message: "Product not found" };
+			return cback ? cback( err ) : reject( err );
+		}
+
+		quant = parseInt( quant.toString(), 10 );
+
+		// if quant is NaN, return the product as is
+		if ( isNaN( quant ) || !quant ) return cback ? cback( null, prod ) : resolve( prod );
+
+		prod.quant = parseInt( prod.quant.toString(), 10 ) + quant;
+
+		if ( prod.quant < 0 ) prod.quant = 0;
+
+		const p = await adb_record_add( req.db, COLL_PRODUCTS, prod );
+
+		return cback ? cback( null, p ) : resolve( p );
+		/*=== f2c_end product_stock_add ===*/
+	} );
+};
+// }}}
+
 // {{{ product_db_init ( liwe: ILiWE, cback: LCBack = null ): Promise<boolean>
 /**
  *
@@ -619,3 +661,5 @@ export const product_db_init = ( liwe: ILiWE, cback: LCback = null ): Promise<bo
 	} );
 };
 // }}}
+
+

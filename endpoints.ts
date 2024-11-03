@@ -14,7 +14,7 @@ import {
 	delete_product_admin_del, get_product_admin_details, get_product_admin_list, get_product_admin_tag, get_product_details,
 	get_product_list, patch_product_admin_fields, patch_product_admin_update, post_product_admin_add, post_product_admin_import_csv,
 	// functions
-	product_create, product_db_init, product_get,
+	product_create, product_db_init, product_get, product_stock_add,
 } from './methods';
 
 import {
@@ -229,7 +229,7 @@ export const init = ( liwe: ILiWE ) => {
 
 	app.post ( '/api/product/admin/import/csv', perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
 		const { file, ___errors } = typed_dict( req.body, [
-			{ name: "file", type: "File" }
+			{ name: "file", type: "File", required: true }
 		] );
 
 		if ( ___errors.length ) return send_error ( res, { message: `Parameters error: ${___errors.join ( ', ' )}` } );
