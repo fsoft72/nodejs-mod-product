@@ -8,13 +8,14 @@ import { send_error, send_ok, typed_dict } from "../../liwe/utils";
 import { locale_load } from '../../liwe/locale';
 
 import { perms } from '../../liwe/auth';
+import { LiWEResponse, sendParametersError, sendResponse } from '../../liwe/response';
 
 import {
 	// endpoints function
-	delete_product_admin_del, get_product_admin_details, get_product_admin_list, get_product_admin_tag, get_product_details,
-	get_product_list, patch_product_admin_fields, patch_product_admin_update, post_product_admin_add, post_product_admin_import_csv,
+	delete_product_admin_del, get_product_admin_details, get_product_admin_list, get_product_details, get_product_list,
+	patch_product_admin_fields, patch_product_admin_update, post_product_admin_add, post_product_admin_import_csv,
 	// functions
-	product_create, product_db_init, product_get, product_stock_add,
+	product_db_init, product_get, product_stock_add,
 } from './methods';
 
 import {
@@ -33,7 +34,7 @@ export const init = ( liwe: ILiWE ) => {
 	liwe.cfg.app.languages.map( ( l ) => locale_load( "product", l ) );
 	product_db_init ( liwe );
 
-	app.post ( '/api/product/admin/add', perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
+	app.post ( '/api/product/admin/add', perms( [ "product.add" ] ),  async ( req: ILRequest, res: ILResponse ) => {
 		const { name, code, id_maker, id_category, id_availability, code_forn, sku, description, short_description, url, cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level, visible, relevance, status, weight, width, height, depth, tags, single, ___errors } = typed_dict( req.body, [
 			{ name: "name", type: "string", required: true },
 			{ name: "code", type: "string" },
@@ -68,16 +69,13 @@ export const init = ( liwe: ILiWE ) => {
 			{ name: "single", type: "boolean" }
 		] );
 
-		if ( ___errors.length ) return send_error ( res, { message: `Parameters error: ${___errors.join ( ', ' )}` } );
+		if ( ___errors.length ) return sendParametersError ( res, ___errors );
 
-		post_product_admin_add ( req, name, code, id_maker, id_category, id_availability, code_forn, sku, description, short_description, url, cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level, visible, relevance, status, weight, width, height, depth, tags, single, ( err: ILError, product: Product ) => {
-			if ( err ) return send_error( res, err );
-
-			send_ok( res, { product } );
-		} );
+		const response = await post_product_admin_add ( req, name, code, id_maker, id_category, id_availability, code_forn, sku, description, short_description, url, cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level, visible, relevance, status, weight, width, height, depth, tags, single);
+		sendResponse ( res, response );
 	} );
 
-	app.patch ( '/api/product/admin/update', perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
+	app.patch ( '/api/product/admin/update', perms( [ "product.add" ] ),  async ( req: ILRequest, res: ILResponse ) => {
 		const { id, name, code, id_maker, id_category, id_availability, code_forn, sku, description, short_description, url, cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level, visible, relevance, status, weight, width, height, depth, tags, ___errors } = typed_dict( req.body, [
 			{ name: "id", type: "string", required: true },
 			{ name: "name", type: "string" },
@@ -112,133 +110,94 @@ export const init = ( liwe: ILiWE ) => {
 			{ name: "tags", type: "string[]" }
 		] );
 
-		if ( ___errors.length ) return send_error ( res, { message: `Parameters error: ${___errors.join ( ', ' )}` } );
+		if ( ___errors.length ) return sendParametersError ( res, ___errors );
 
-		patch_product_admin_update ( req, id, name, code, id_maker, id_category, id_availability, code_forn, sku, description, short_description, url, cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level, visible, relevance, status, weight, width, height, depth, tags, ( err: ILError, product: Product ) => {
-			if ( err ) return send_error( res, err );
-
-			send_ok( res, { product } );
-		} );
+		const response = await patch_product_admin_update ( req, id, name, code, id_maker, id_category, id_availability, code_forn, sku, description, short_description, url, cost, price_net, price_vat, curr_price_net, curr_price_vat, vat, free, discount, quant, ordered, available, level, visible, relevance, status, weight, width, height, depth, tags);
+		sendResponse ( res, response );
 	} );
 
-	app.patch ( '/api/product/admin/fields', perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
+	app.patch ( '/api/product/admin/fields', perms( [ "product.add" ] ),  async ( req: ILRequest, res: ILResponse ) => {
 		const { id, data, ___errors } = typed_dict( req.body, [
 			{ name: "id", type: "string", required: true },
 			{ name: "data", type: "any", required: true }
 		] );
 
-		if ( ___errors.length ) return send_error ( res, { message: `Parameters error: ${___errors.join ( ', ' )}` } );
+		if ( ___errors.length ) return sendParametersError ( res, ___errors );
 
-		patch_product_admin_fields ( req, id, data, ( err: ILError, product: Product ) => {
-			if ( err ) return send_error( res, err );
-
-			send_ok( res, { product } );
-		} );
+		const response = await patch_product_admin_fields ( req, id, data);
+		sendResponse ( res, response );
 	} );
 
-	app.get ( '/api/product/admin/list', perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
+	app.get ( '/api/product/admin/list', perms( [ "product.add" ] ),  async ( req: ILRequest, res: ILResponse ) => {
 		const { id_category, skip, rows, ___errors } = typed_dict( req.query as any, [
 			{ name: "id_category", type: "string" },
 			{ name: "skip", type: "number" },
 			{ name: "rows", type: "number" }
 		] );
 
-		if ( ___errors.length ) return send_error ( res, { message: `Parameters error: ${___errors.join ( ', ' )}` } );
+		if ( ___errors.length ) return sendParametersError ( res, ___errors );
 
-		get_product_admin_list ( req, id_category, skip, rows, ( err: ILError, products: Product ) => {
-			if ( err ) return send_error( res, err );
-
-			send_ok( res, { products } );
-		} );
+		const response = await get_product_admin_list ( req, id_category, skip, rows);
+		sendResponse ( res, response );
 	} );
 
-	app.delete ( '/api/product/admin/del', perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
+	app.delete ( '/api/product/admin/del', perms( [ "product.add" ] ),  async ( req: ILRequest, res: ILResponse ) => {
 		const { id, ___errors } = typed_dict( req.body, [
 			{ name: "id", type: "string", required: true }
 		] );
 
-		if ( ___errors.length ) return send_error ( res, { message: `Parameters error: ${___errors.join ( ', ' )}` } );
+		if ( ___errors.length ) return sendParametersError ( res, ___errors );
 
-		delete_product_admin_del ( req, id, ( err: ILError, id: string ) => {
-			if ( err ) return send_error( res, err );
-
-			send_ok( res, { id } );
-		} );
+		const response = await delete_product_admin_del ( req, id);
+		sendResponse ( res, response );
 	} );
 
-	app.get ( '/api/product/admin/tag', perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
-		const { id, tags, ___errors } = typed_dict( req.query as any, [
-			{ name: "id", type: "string", required: true },
-			{ name: "tags", type: "string[]", required: true }
-		] );
-
-		if ( ___errors.length ) return send_error ( res, { message: `Parameters error: ${___errors.join ( ', ' )}` } );
-
-		get_product_admin_tag ( req, id, tags, ( err: ILError, product: Product ) => {
-			if ( err ) return send_error( res, err );
-
-			send_ok( res, { product } );
-		} );
-	} );
-
-	app.get ( '/api/product/details', ( req: ILRequest, res: ILResponse ) => {
+	app.get ( '/api/product/details',  async ( req: ILRequest, res: ILResponse ) => {
 		const { id, code, code_forn, ___errors } = typed_dict( req.query as any, [
 			{ name: "id", type: "string" },
 			{ name: "code", type: "string" },
 			{ name: "code_forn", type: "string" }
 		] );
 
-		if ( ___errors.length ) return send_error ( res, { message: `Parameters error: ${___errors.join ( ', ' )}` } );
+		if ( ___errors.length ) return sendParametersError ( res, ___errors );
 
-		get_product_details ( req, id, code, code_forn, ( err: ILError, product: Product ) => {
-			if ( err ) return send_error( res, err );
-
-			send_ok( res, { product } );
-		} );
+		const response = await get_product_details ( req, id, code, code_forn);
+		sendResponse ( res, response );
 	} );
 
-	app.get ( '/api/product/list', ( req: ILRequest, res: ILResponse ) => {
+	app.get ( '/api/product/list',  async ( req: ILRequest, res: ILResponse ) => {
 		const { id_category, skip, rows, ___errors } = typed_dict( req.query as any, [
 			{ name: "id_category", type: "string" },
 			{ name: "skip", type: "number" },
 			{ name: "rows", type: "number" }
 		] );
 
-		if ( ___errors.length ) return send_error ( res, { message: `Parameters error: ${___errors.join ( ', ' )}` } );
+		if ( ___errors.length ) return sendParametersError ( res, ___errors );
 
-		get_product_list ( req, id_category, skip, rows, ( err: ILError, products: Product ) => {
-			if ( err ) return send_error( res, err );
-
-			send_ok( res, { products } );
-		} );
+		const response = await get_product_list ( req, id_category, skip, rows);
+		sendResponse ( res, response );
 	} );
 
-	app.get ( '/api/product/admin/details', perms( [ "is-logged" ] ), ( req: ILRequest, res: ILResponse ) => {
+	app.get ( '/api/product/admin/details', perms( [ "is-logged" ] ),  async ( req: ILRequest, res: ILResponse ) => {
 		const { id, ___errors } = typed_dict( req.query as any, [
 			{ name: "id", type: "string", required: true }
 		] );
 
-		if ( ___errors.length ) return send_error ( res, { message: `Parameters error: ${___errors.join ( ', ' )}` } );
+		if ( ___errors.length ) return sendParametersError ( res, ___errors );
 
-		get_product_admin_details ( req, id, ( err: ILError, product: Product ) => {
-			if ( err ) return send_error( res, err );
-
-			send_ok( res, { product } );
-		} );
+		const response = await get_product_admin_details ( req, id);
+		sendResponse ( res, response );
 	} );
 
-	app.post ( '/api/product/admin/import/csv', perms( [ "product.add" ] ), ( req: ILRequest, res: ILResponse ) => {
+	app.post ( '/api/product/admin/import/csv', perms( [ "product.add" ] ),  async ( req: ILRequest, res: ILResponse ) => {
 		const { file, ___errors } = typed_dict( req.body, [
 			{ name: "file", type: "File", required: true }
 		] );
 
-		if ( ___errors.length ) return send_error ( res, { message: `Parameters error: ${___errors.join ( ', ' )}` } );
+		if ( ___errors.length ) return sendParametersError ( res, ___errors );
 
-		post_product_admin_import_csv ( req, file, ( err: ILError, products: number ) => {
-			if ( err ) return send_error( res, err );
-
-			send_ok( res, { products } );
-		} );
+		const response = await post_product_admin_import_csv ( req, file);
+		sendResponse ( res, response );
 	} );
 
 };
