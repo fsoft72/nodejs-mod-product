@@ -69,7 +69,8 @@ const _product_save = async ( req: ILRequest, err: LiWEError, params: Product, r
 		const tags = params.tags;
 		delete params.tags;
 
-		await tag_obj( req, tags, prod.id, 'product' );
+		const l = await tag_obj( req, err, tags, prod.id, 'product' );
+		if ( !l ) return null;
 	}
 
 	prod = { ...prod, ...keys_valid( params ) };
@@ -160,6 +161,9 @@ export const post_product_admin_add = async ( req: ILRequest, name: string, code
 	/*=== f2c_start post_product_admin_add ===*/
 	const err: ILError = { message: "" };
 	const domain = await system_domain_get_by_session( req );
+
+	if ( visible === undefined || visible === null ) visible = true;
+
 	const p: Product = await _product_save( req, err, {
 		id: mkid( 'prod' ),
 		domain: domain.code,
@@ -168,7 +172,7 @@ export const post_product_admin_add = async ( req: ILRequest, name: string, code
 		visible, relevance, status, weight, width, height, depth, sku, tags, single
 	}, true );
 
-	if ( err.message ) return responseError( err.message ); // FIXME: remove .message
+	if ( !p ) return responseError( err.message );
 
 	return responseSuccess( p );
 	/*=== f2c_end post_product_admin_add ===*/
@@ -513,7 +517,7 @@ export const product_get = async ( req: ILRequest, id: string, code: string, cod
  * Use this function to add / remove product elements from the stock.
  * - If you specify a positive number, product stock will **increase**
  * - If you specify a negative number, product stock will **decrese**
- * product stock will **never** go below zero 
+ * product stock will **never** go below zero
  *
  * @param req - IL Request [req]
  * @param prod_code - The product id [req]
@@ -556,27 +560,27 @@ export const product_stock_add = async ( req: any, prod_code: string, quant: num
  *
  */
 export const product_db_init = async ( liwe: ILiWE, ): Promise<boolean> => {
-		_liwe = liwe;
+	_liwe = liwe;
 
-		system_permissions_register( 'product', _module_perms );
+	system_permissions_register( 'product', _module_perms );
 
-		await adb_collection_init( liwe.db, COLL_PRODUCTS, [
-			{ type: "persistent", fields: [ "id" ], unique: true },
-			{ type: "persistent", fields: [ "domain" ], unique: false },
-			{ type: "persistent", fields: [ "id_owner" ], unique: false },
-			{ type: "persistent", fields: [ "id_maker" ], unique: false },
-			{ type: "persistent", fields: [ "id_category" ], unique: false },
-			{ type: "persistent", fields: [ "id_availability" ], unique: false },
-			{ type: "persistent", fields: [ "code" ], unique: false },
-			{ type: "persistent", fields: [ "code_forn" ], unique: false },
-			{ type: "persistent", fields: [ "sku" ], unique: false },
-			{ type: "persistent", fields: [ "name" ], unique: false },
-			{ type: "persistent", fields: [ "free" ], unique: false },
-			{ type: "persistent", fields: [ "visible" ], unique: false },
-			{ type: "persistent", fields: [ "status" ], unique: false },
-			{ type: "persistent", fields: [ "relevance" ], unique: false },
-			{ type: "persistent", fields: [ "tags[*]" ], unique: false },
-		], { drop: false } );
+	await adb_collection_init( liwe.db, COLL_PRODUCTS, [
+		{ type: "persistent", fields: [ "id" ], unique: true },
+		{ type: "persistent", fields: [ "domain" ], unique: false },
+		{ type: "persistent", fields: [ "id_owner" ], unique: false },
+		{ type: "persistent", fields: [ "id_maker" ], unique: false },
+		{ type: "persistent", fields: [ "id_category" ], unique: false },
+		{ type: "persistent", fields: [ "id_availability" ], unique: false },
+		{ type: "persistent", fields: [ "code" ], unique: false },
+		{ type: "persistent", fields: [ "code_forn" ], unique: false },
+		{ type: "persistent", fields: [ "sku" ], unique: false },
+		{ type: "persistent", fields: [ "name" ], unique: false },
+		{ type: "persistent", fields: [ "free" ], unique: false },
+		{ type: "persistent", fields: [ "visible" ], unique: false },
+		{ type: "persistent", fields: [ "status" ], unique: false },
+		{ type: "persistent", fields: [ "relevance" ], unique: false },
+		{ type: "persistent", fields: [ "tags[*]" ], unique: false },
+	], { drop: false } );
 
 	/*=== f2c_start product_db_init ===*/
 

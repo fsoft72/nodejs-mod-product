@@ -24,17 +24,17 @@
 			},
 			"tests": [
 				{
-					"field": "product.code",
+					"field": "data.code",
 					"value": "prod001"
 				},
 				{
-					"field": "product.id",
+					"field": "data.id",
 					"mode": "EXISTS"
 				}
 			],
 			"fields": [
 				[
-					"product.id",
+					"data.id",
 					"id_prod_01"
 				]
 			]
@@ -54,11 +54,11 @@
 			},
 			"tests": [
 				{
-					"field": "product.code",
+					"field": "data.code",
 					"value": "prod001"
 				},
 				{
-					"field": "product.description",
+					"field": "data.description",
 					"value": "%(descr_text)s"
 				}
 			]
@@ -72,21 +72,7 @@
 			},
 			"tests": [
 				{
-					"field": "product.code",
-					"value": "prod001"
-				}
-			]
-		},
-		{
-			"method": "get",
-			"url": "/api/product/details",
-			"auth": true,
-			"params": {
-				"code": "prod001"
-			},
-			"tests": [
-				{
-					"field": "product.code",
+					"field": "data.code",
 					"value": "prod001"
 				}
 			]
@@ -97,8 +83,23 @@
 			"auth": true,
 			"params": {
 				"code_forn": "forn_prod001",
+				"visible": true,
 				"id": "%(id_prod_01)s"
-			}
+			},
+			"tests": [
+				{
+					"field": "data.code",
+					"value": "prod001"
+				},
+				{
+					"field": "data.code_forn",
+					"value": "forn_prod001"
+				},
+				{
+					"field": "data.visible",
+					"value": true
+				}
+			]
 		},
 		{
 			"method": "get",
@@ -109,7 +110,7 @@
 			},
 			"tests": [
 				{
-					"field": "product.code",
+					"field": "data.code",
 					"value": "prod001"
 				}
 			]
@@ -120,7 +121,7 @@
 			"auth": true,
 			"tests": [
 				{
-					"field": "products",
+					"field": "data",
 					"mode": "LEN",
 					"value": 0
 				}
@@ -132,6 +133,7 @@
 			"auth": true,
 			"params": {
 				"visible": true,
+				"quant": 10,
 				"id": "%(id_prod_01)s"
 			}
 		},
@@ -141,12 +143,12 @@
 			"auth": true,
 			"tests": [
 				{
-					"field": "products",
+					"field": "data",
 					"mode": "LEN",
 					"value": 1
 				},
 				{
-					"field": "products.[0].code",
+					"field": "data.[0].code",
 					"value": "prod001"
 				}
 			]
